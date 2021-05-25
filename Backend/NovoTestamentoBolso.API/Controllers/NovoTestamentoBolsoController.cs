@@ -26,8 +26,6 @@ namespace NovoTestamentoBolso.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            
-            return Ok("bruno");
             try
             {
                 var results = await _bibliaService.GetAll();
