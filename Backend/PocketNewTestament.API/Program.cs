@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace NovoTestamentoBolso.API
+namespace PocketNewTestament.API
 {
     public class Program
     {

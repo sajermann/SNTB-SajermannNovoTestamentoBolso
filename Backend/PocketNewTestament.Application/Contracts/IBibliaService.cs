@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NovoTestamentoBolso.Domain;
+using PocketNewTestament.Domain;
 
-namespace NovoTestamentoBolso.Application.Contracts
+namespace PocketNewTestament.Application.Contracts
 {
     public interface IBibliaService
     {

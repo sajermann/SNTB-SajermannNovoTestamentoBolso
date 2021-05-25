@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using NovoTestamentoBolso.Domain;
-using NovoTestamentoBolso.Persistence.Context;
-using NovoTestamentoBolso.Persistence.Contracts;
+using PocketNewTestament.Domain;
+using PocketNewTestament.Persistence.Context;
+using PocketNewTestament.Persistence.Contracts;
 
-namespace NovoTestamentoBolso.Persistence
+namespace PocketNewTestament.Persistence
 {
     public class GeralPersist : IGeralPersist
     {
-        private readonly NovoTestamentoBolsoContext _context;
-        public GeralPersist(NovoTestamentoBolsoContext context)
+        private readonly PocketNewTestamentContext _context;
+        public GeralPersist(PocketNewTestamentContext context)
         {
             _context = context;
 

@@ -2,23 +2,21 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using NovoTestamentoBolso.Persistence.Context;
+using PocketNewTestament.Persistence.Context;
 
-namespace NovoTestamentoBolso.Persistence.Migrations
+namespace PocketNewTestament.Persistence.Migrations
 {
-    [DbContext(typeof(NovoTestamentoBolsoContext))]
-    [Migration("20210418201316_Initial")]
-    partial class Initial
+    [DbContext(typeof(PocketNewTestamentContext))]
+    partial class PocketNewTestamentContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.5");
 
-            modelBuilder.Entity("NovoTestamentoBolso.Domain.Biblia", b =>
+            modelBuilder.Entity("PocketNewTestament.Domain.Biblia", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

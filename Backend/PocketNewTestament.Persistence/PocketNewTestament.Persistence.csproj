@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NovoTestamentoBolso.Domain\NovoTestamentoBolso.Domain.csproj" />
+    <ProjectReference Include="..\PocketNewTestament.Domain\PocketNewTestament.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

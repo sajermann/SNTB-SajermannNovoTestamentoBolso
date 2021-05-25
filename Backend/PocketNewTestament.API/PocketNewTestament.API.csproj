@@ -20,10 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NovoTestamentoBolso.Domain\NovoTestamentoBolso.Domain.csproj" />
-    <ProjectReference Include="..\NovoTestamentoBolso.Application\NovoTestamentoBolso.Application.csproj" />
-    <ProjectReference Include="..\NovoTestamentoBolso.Domain\NovoTestamentoBolso.Domain.csproj" />
-    <ProjectReference Include="..\NovoTestamentoBolso.Persistence\NovoTestamentoBolso.Persistence.csproj" />
+    <ProjectReference Include="..\PocketNewTestament.Domain\PocketNewTestament.Domain.csproj" />
+    <ProjectReference Include="..\PocketNewTestament.Application\PocketNewTestament.Application.csproj" />
+    <ProjectReference Include="..\PocketNewTestament.Domain\PocketNewTestament.Domain.csproj" />
+    <ProjectReference Include="..\PocketNewTestament.Persistence\PocketNewTestament.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

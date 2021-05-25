@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.6.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NovoTestamentoBolso.API", "NovoTestamentoBolso.API\NovoTestamentoBolso.API.csproj", "{B77B77AA-4F0B-4546-BBE7-10E98C230B6F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PocketNewTestament.API", "PocketNewTestament.API\PocketNewTestament.API.csproj", "{B77B77AA-4F0B-4546-BBE7-10E98C230B6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NovoTestamentoBolso.Domain", "NovoTestamentoBolso.Domain\NovoTestamentoBolso.Domain.csproj", "{C4A520B0-9DBF-46F6-9608-471CFD10F7EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PocketNewTestament.Domain", "PocketNewTestament.Domain\PocketNewTestament.Domain.csproj", "{C4A520B0-9DBF-46F6-9608-471CFD10F7EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NovoTestamentoBolso.Persistence", "NovoTestamentoBolso.Persistence\NovoTestamentoBolso.Persistence.csproj", "{2578191D-EB33-41F3-AF3F-4D741343D85F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PocketNewTestament.Persistence", "PocketNewTestament.Persistence\PocketNewTestament.Persistence.csproj", "{2578191D-EB33-41F3-AF3F-4D741343D85F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NovoTestamentoBolso.Application", "NovoTestamentoBolso.Application\NovoTestamentoBolso.Application.csproj", "{5F8083E2-7224-47ED-8082-F16EBF51244B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PocketNewTestament.Application", "PocketNewTestament.Application\PocketNewTestament.Application.csproj", "{5F8083E2-7224-47ED-8082-F16EBF51244B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

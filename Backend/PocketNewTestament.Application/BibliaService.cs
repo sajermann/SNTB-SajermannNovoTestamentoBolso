@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NovoTestamentoBolso.Application.Contracts;
-using NovoTestamentoBolso.Domain;
-using NovoTestamentoBolso.Persistence;
-using NovoTestamentoBolso.Persistence.Contracts;
+using PocketNewTestament.Application.Contracts;
+using PocketNewTestament.Domain;
+using PocketNewTestament.Persistence;
+using PocketNewTestament.Persistence.Contracts;
 
-namespace NovoTestamentoBolso.Application
+namespace PocketNewTestament.Application
 {
     public class BibliaService : IBibliaService
     {

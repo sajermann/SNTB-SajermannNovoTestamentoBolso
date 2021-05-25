@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace NovoTestamentoBolso.Persistence.Migrations
+namespace PocketNewTestament.Persistence.Migrations
 {
     public partial class Initial : Migration
     {

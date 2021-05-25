@@ -6,19 +6,19 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using NovoTestamentoBolso.Application;
-using NovoTestamentoBolso.Application.Contracts;
-using NovoTestamentoBolso.Domain;
+using PocketNewTestament.Application;
+using PocketNewTestament.Application.Contracts;
+using PocketNewTestament.Domain;
 
-namespace NovoTestamentoBolso.API.Controllers
+namespace PocketNewTestament.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class NovoTestamentoBolsoController : ControllerBase
+    public class PocketNewTestamentController : ControllerBase
     {
         private readonly IBibliaService _bibliaService;
         
-        public NovoTestamentoBolsoController(IBibliaService bibliaService)
+        public PocketNewTestamentController(IBibliaService bibliaService)
         {
             _bibliaService = bibliaService;
         }

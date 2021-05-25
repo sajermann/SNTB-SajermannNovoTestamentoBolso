@@ -12,13 +12,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using NovoTestamentoBolso.Application;
-using NovoTestamentoBolso.Application.Contracts;
-using NovoTestamentoBolso.Persistence;
-using NovoTestamentoBolso.Persistence.Context;
-using NovoTestamentoBolso.Persistence.Contracts;
+using PocketNewTestament.Application;
+using PocketNewTestament.Application.Contracts;
+using PocketNewTestament.Persistence;
+using PocketNewTestament.Persistence.Context;
+using PocketNewTestament.Persistence.Contracts;
 
-namespace NovoTestamentoBolso.API
+namespace PocketNewTestament.API
 {
     public class Startup
     {
@@ -32,7 +32,7 @@ namespace NovoTestamentoBolso.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<NovoTestamentoBolsoContext>(
+            services.AddDbContext<PocketNewTestamentContext>(
                 context => context.UseSqlite(Configuration.GetConnectionString("Default"))
             );
             services.AddControllers();
@@ -42,7 +42,7 @@ namespace NovoTestamentoBolso.API
             services.AddCors();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "NovoTestamentoBolso.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PocketNewTestament.API", Version = "v1" });
             });
         }
 
@@ -53,7 +53,7 @@ namespace NovoTestamentoBolso.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "NovoTestamentoBolso.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PocketNewTestament.API v1"));
             }
 
             app.UseHttpsRedirection();
