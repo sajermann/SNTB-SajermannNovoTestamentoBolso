@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +26,12 @@
     <ProjectReference Include="..\PocketNewTestament.Application\PocketNewTestament.Application.csproj" />
     <ProjectReference Include="..\PocketNewTestament.Domain\PocketNewTestament.Domain.csproj" />
     <ProjectReference Include="..\PocketNewTestament.Persistence\PocketNewTestament.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="PocketNewTestament.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

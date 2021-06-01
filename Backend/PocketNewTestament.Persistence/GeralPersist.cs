@@ -27,7 +27,7 @@ namespace PocketNewTestament.Persistence
             var t = _context.Biblias
                 .Where(b => b.Id == id && b.IsActive)
                 .FirstOrDefault();
-            t.IsActive = false;
+            if(t != null) t.IsActive = false;
         }
 
         public async Task<List<Biblia>> GetAll()
@@ -36,7 +36,7 @@ namespace PocketNewTestament.Persistence
         }
         public async Task<Biblia> GetById(int id)
         {
-            return await _context.Biblias.Where(b => b.IsActive && b.Id == id).FirstOrDefaultAsync();
+            return await _context.Biblias.AsNoTracking().Where(b => b.IsActive && b.Id == id).FirstOrDefaultAsync();
         }
         public async Task<bool> SaveChangesAsync()
         {

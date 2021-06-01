@@ -38,7 +38,7 @@ namespace PocketNewTestament.API
             services.AddControllers();
             services.AddScoped<IGeralPersist, GeralPersist>();
             services.AddScoped<IBibliaService, BibliaService>();
-
+            
             services.AddCors();
             services.AddSwaggerGen(c =>
             {
@@ -55,7 +55,12 @@ namespace PocketNewTestament.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PocketNewTestament.API v1"));
             }
-
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
+            }
+            app.UseDeveloperExceptionPage();
             app.UseHttpsRedirection();
 
             app.UseRouting();

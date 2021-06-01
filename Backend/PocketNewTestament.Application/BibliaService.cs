@@ -38,6 +38,10 @@ namespace PocketNewTestament.Application
         public async Task<Biblia> Update(Biblia model)
         {
             try{
+                var oldResult = await _geralPersist.GetById(model.Id);
+                model.CreatedAt = oldResult.CreatedAt;
+                model.UpdatedAt = DateTime.Now;
+                model.IsActive = true;
                 _geralPersist.Update<Biblia>(model);
                 if(await _geralPersist.SaveChangesAsync()){
                     return await _geralPersist.GetById(model.Id);
