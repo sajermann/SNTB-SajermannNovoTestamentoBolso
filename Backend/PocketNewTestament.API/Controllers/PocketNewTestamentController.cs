@@ -45,6 +45,9 @@ namespace PocketNewTestament.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(Biblia model)
         {
+            if (!_hostingEnvironment.EnvironmentName.Equals("Development")){
+                return this.StatusCode(StatusCodes.Status401Unauthorized, $"Você não tem autorização para realizar essa ação!");
+            }
             try
             {
                 var result = await _bibliaService.Add(model);

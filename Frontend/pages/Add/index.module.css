@@ -1,0 +1,16 @@
+.container{
+		max-width: 600px;
+		margin: auto;
+}
+.divInput{
+	margin: 20px
+}
+.divButtons{
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.buttonConfirm{
+	background-color: green !important;
+}
