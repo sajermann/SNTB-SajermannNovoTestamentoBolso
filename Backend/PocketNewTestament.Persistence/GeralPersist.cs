@@ -38,6 +38,12 @@ namespace PocketNewTestament.Persistence
         {
             return await _context.Biblias.AsNoTracking().Where(b => b.IsActive && b.Id == id).FirstOrDefaultAsync();
         }
+
+        public async Task<Info> GetInfo()
+        {
+            return await _context.Infos.FirstOrDefaultAsync();
+        }
+
         public async Task<bool> SaveChangesAsync()
         {
             try

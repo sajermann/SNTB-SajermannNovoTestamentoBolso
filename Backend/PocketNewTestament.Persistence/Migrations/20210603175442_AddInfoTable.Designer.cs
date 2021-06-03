@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PocketNewTestament.Persistence.Context;
 
 namespace PocketNewTestament.Persistence.Migrations
 {
     [DbContext(typeof(PocketNewTestamentContext))]
-    partial class PocketNewTestamentContextModelSnapshot : ModelSnapshot
+    [Migration("20210603175442_AddInfoTable")]
+    partial class AddInfoTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,6 +48,29 @@ namespace PocketNewTestament.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Biblias");
+                });
+
+            modelBuilder.Entity("PocketNewTestament.Domain.Info", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("DatabaseSize")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RegistersCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Version")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Infos");
                 });
 #pragma warning restore 612, 618
         }

@@ -38,6 +38,7 @@ namespace PocketNewTestament.API
             services.AddControllers();
             services.AddScoped<IGeralPersist, GeralPersist>();
             services.AddScoped<IBibliaService, BibliaService>();
+            services.AddScoped<IInfoService, InfoService>();
             
             services.AddCors();
             services.AddSwaggerGen(c =>

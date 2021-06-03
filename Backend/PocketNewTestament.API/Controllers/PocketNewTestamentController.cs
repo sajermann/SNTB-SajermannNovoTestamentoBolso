@@ -19,11 +19,13 @@ namespace PocketNewTestament.API.Controllers
     public class PocketNewTestamentController : ControllerBase
     {
         private readonly IBibliaService _bibliaService;
+        private readonly IInfoService _infoService;
         private readonly IWebHostEnvironment _hostingEnvironment;
         
-        public PocketNewTestamentController(IBibliaService bibliaService, IWebHostEnvironment hostingEnvironment)
+        public PocketNewTestamentController(IBibliaService bibliaService, IInfoService infoService, IWebHostEnvironment hostingEnvironment)
         {
             _bibliaService = bibliaService;
+            _infoService = infoService;
             _hostingEnvironment = hostingEnvironment;
         }
 
@@ -67,6 +69,7 @@ namespace PocketNewTestament.API.Controllers
             {
                 var result = await _bibliaService.Add(model);
                 if(result == null) return BadRequest("Erro ao tentar adicionar dados.");
+                await _infoService.UpdateAutomatic();
                 return Ok(result);
             }
             catch (Exception e)
@@ -87,6 +90,7 @@ namespace PocketNewTestament.API.Controllers
             {
                 var result = await _bibliaService.Update(model);
                 if(result == null) return BadRequest("Erro ao tentar atualizar dados.");
+                await _infoService.UpdateAutomatic();
                 return Ok(result);
             }
             catch (Exception e)
@@ -107,6 +111,8 @@ namespace PocketNewTestament.API.Controllers
             try
             {
                 await _bibliaService.Delete(id);
+
+                await _infoService.UpdateAutomatic();
                 return Ok();
             }
             catch (Exception e)

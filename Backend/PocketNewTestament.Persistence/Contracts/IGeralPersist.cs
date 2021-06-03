@@ -12,5 +12,6 @@ namespace PocketNewTestament.Persistence.Contracts
         Task<List<Biblia>> GetAll();
         Task<Biblia> GetById(int id);
         Task<bool> SaveChangesAsync();
+        Task<Info> GetInfo();
     }
 }

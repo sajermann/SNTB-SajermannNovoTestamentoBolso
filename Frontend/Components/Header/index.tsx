@@ -139,7 +139,7 @@ export default function Header() {
 					</IconButton>
 				</div>
 				<Divider />
-				<List>
+				<List onClick={handleDrawerClose}>
 					<ListItem button key="home" onClick={() => router.push('/Home')}>
 						<ListItemIcon>
 							<HomeIcon />

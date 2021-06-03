@@ -13,13 +13,16 @@ import HistoryIcon from '@material-ui/icons/History';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 
 import formatDateTime from '../../utils/formatDateTime';
+import formatSize from '../../utils/formatSize';
 import Biblia from '../../Models/Biblia';
+import Info from '../../Models/Info';
 import api from '../../services/service';
 import styles from './index.module.css';
 
 export default function Home() {
 	const router = useRouter();
 	const [biblias, setBiblias] = useState<Biblia[]>();
+	const [info, setInfo] = useState<Info>();
 	const [bibliasShow, setBibliasShow] = useState<Biblia[]>();
 	const [bibliasFiltred, setBibliasFiltred] = useState<Biblia[]>();
 	const [isLoading, setIsLoading] = useState(true);
@@ -53,6 +56,8 @@ export default function Home() {
 			setBiblias(data);
 			setBibliasFiltred(data);
 			handleShowBiblia(data);
+			const { data: dataInfo } = await api.get<Info>('/api/Info');
+			setInfo(dataInfo);
 			setIsLoading(false);
 		}
 		getData();
@@ -89,6 +94,13 @@ export default function Home() {
 	return (
 		<div className={styles.container}>
 			<Grid container spacing={1} justify="center" alignItems="center">
+				<Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+					<Paper elevation={3} className={styles.block}>
+						Registros: {info.registersCount} | Versão: {info.version} | Tamanho
+						Database: {formatSize(info.databaseSize, 'KB')} | Última
+						Atualização: {formatDateTime(info.updatedAt)}
+					</Paper>
+				</Grid>
 				<Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
 					<div className={styles.inputSearch}>
 						<TextField
