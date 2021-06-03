@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import { AuthProvider } from '../context/AuthContext';
 import '../styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
+import Header from '../Components/Header';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -31,6 +32,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 			<ThemeProvider theme={theme}>
 				<AuthProvider>
 					<CssBaseline />
+					<Header />
 					<Component {...pageProps} />
 					<ToastContainer />
 				</AuthProvider>

@@ -7,6 +7,7 @@ namespace PocketNewTestament.Application.Contracts
     public interface IBibliaService
     {
          Task<List<Biblia>> GetAll();
+         Task<Biblia> GetById(int id);
          Task<Biblia> Add(Biblia model);
          Task<Biblia> Update(Biblia model);
          Task<bool> Delete(int id);

@@ -41,6 +41,21 @@ namespace PocketNewTestament.API.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar dados. Erro: {e.Message}");
             }
         }
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            try
+            {
+                var result = await _bibliaService.GetById(id);
+                if(result == null) return NotFound("Nenhum Registro Encontrado");
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar dados. Erro: {e.Message}");
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> Add(Biblia model)
@@ -81,6 +96,7 @@ namespace PocketNewTestament.API.Controllers
         }
         
         [HttpDelete]
+        [Route("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
 

@@ -10,8 +10,12 @@
 	padding: 10px;
 	margin: 10px;
 	display: flex;
+	align-items: center;
 }
 
+.inputSearch{
+	margin-left: 15px;
+}
 .title{
 	display: flex;
 	align-items: center;
@@ -47,4 +51,11 @@
 
 .icon{
 	margin-right: 5px;
+}
+
+.pagination{
+	margin-top: 20px !important;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }

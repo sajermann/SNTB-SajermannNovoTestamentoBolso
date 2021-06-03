@@ -1,4 +1,5 @@
 export default interface Biblia {
+	id?: number;
 	titulo: string;
 	capitulo: number;
 	versiculo: number;

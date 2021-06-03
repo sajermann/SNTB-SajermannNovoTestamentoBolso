@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 // Imports Material UI
@@ -8,68 +8,42 @@ import CancelPresentationIcon from '@material-ui/icons/CancelPresentation';
 
 import { toast } from 'react-toastify';
 
-import Biblia from '../../Models/Biblia';
+import Biblia from '../../../Models/Biblia';
 import styles from './index.module.css';
-import api from '../../services/service';
+import api from '../../../services/service';
 
-export default function Home() {
+export default function Delete() {
 	const router = useRouter();
+	const { id } = router.query;
 	const [biblia, setBiblia] = useState<Biblia>({
+		id: 0,
 		titulo: '',
 		capitulo: 0,
 		versiculo: 0,
 		descricao: '',
 	});
-	const [canSave, setCanSave] = useState(false);
-
-	function verifyCanSave(bibliaNow): void {
-		if (
-			bibliaNow.titulo === '' ||
-			bibliaNow.capitulo === 0 ||
-			bibliaNow.versiculo === 0 ||
-			bibliaNow.descricao === ''
-		) {
-			setCanSave(false);
-			return;
-		}
-		setCanSave(true);
-	}
-
-	function handleInput(event: ChangeEvent<HTMLInputElement>) {
-		const bibliaNew = { ...biblia };
-
-		switch (event.target.name) {
-			case 'titulo':
-				bibliaNew.titulo = event.target.value;
-				break;
-			case 'capitulo':
-				bibliaNew.capitulo = parseInt(event.target.value, 10) || 0;
-				break;
-			case 'versiculo':
-				bibliaNew.versiculo = parseInt(event.target.value, 10) || 0;
-				break;
-			case 'descricao':
-				bibliaNew.descricao = event.target.value;
-				break;
-			default:
-				break;
-		}
-
-		setBiblia(bibliaNew);
-		verifyCanSave(bibliaNew);
-	}
-
-	async function handleAdd() {
-		const result = await api.post('/api/PocketNewTestament', biblia);
+	const [isLoading, setIsLoading] = useState(true);
+	async function handleDelete() {
+		const result = await api.delete(`/api/PocketNewTestament/${id}`);
 		console.log(result);
 		if (result.status === 200) {
-			toast.success('Registro incluso com sucesso');
+			toast.success('Registro deletado com sucesso');
 			router.push('/Home');
 		} else {
 			toast.error('Ocorreu um erro');
 			console.log(result);
 		}
 	}
+
+	useEffect(() => {
+		console.log('Bateu no delete', id);
+		async function getData() {
+			const { data } = await api.get<Biblia>(`/api/PocketNewTestament/${id}`);
+			setBiblia(data);
+			setIsLoading(false);
+		}
+		if (id) getData();
+	}, [id]);
 
 	function handleHome(): void {
 		router.push('/Home');
@@ -79,8 +53,19 @@ export default function Home() {
 		<div className={styles.container}>
 			<div className={styles.divInput}>
 				<Typography variant="h3" component="h4" gutterBottom noWrap>
-					Adicionar Registro
+					Deletar Registro
 				</Typography>
+			</div>
+			<div className={styles.divInput}>
+				<TextField
+					fullWidth
+					id="inputId"
+					className=""
+					label="Id"
+					value={biblia.id}
+					name="id"
+					disabled
+				/>
 			</div>
 			<div className={styles.divInput}>
 				<TextField
@@ -89,8 +74,8 @@ export default function Home() {
 					className=""
 					label="Título"
 					value={biblia.titulo}
-					onChange={handleInput}
 					name="titulo"
+					disabled
 				/>
 			</div>
 			<div className={styles.divInput}>
@@ -100,10 +85,9 @@ export default function Home() {
 					className=""
 					label="Capítulo"
 					value={biblia.capitulo}
-					onChange={handleInput}
 					name="capitulo"
 					type="number"
-					InputProps={{ inputProps: { min: 0 } }}
+					disabled
 				/>
 			</div>
 			<div className={styles.divInput}>
@@ -113,10 +97,9 @@ export default function Home() {
 					className=""
 					label="Versículo"
 					value={biblia.versiculo}
-					onChange={handleInput}
 					name="versiculo"
 					type="number"
-					InputProps={{ inputProps: { min: 0 } }}
+					disabled
 				/>
 			</div>
 			<div className={styles.divInput}>
@@ -126,9 +109,9 @@ export default function Home() {
 					className="bruno"
 					label="Descrição"
 					value={biblia.descricao}
-					onChange={handleInput}
 					name="descricao"
 					multiline
+					disabled
 				/>
 			</div>
 			<div className={styles.divButtons}>
@@ -137,10 +120,9 @@ export default function Home() {
 					color="primary"
 					className={styles.buttonConfirm}
 					startIcon={<CheckBoxOutlinedIcon />}
-					onClick={handleAdd}
-					disabled={!canSave}
+					onClick={handleDelete}
 				>
-					Salvar
+					Confirmar
 				</Button>
 				<Button
 					variant="contained"

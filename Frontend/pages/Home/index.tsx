@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, ChangeEvent } from 'react';
+import { useRouter } from 'next/router';
 
 // Imports do Material UI
-import { Paper, Grid, Typography, TextField } from '@material-ui/core';
+import { Paper, Grid, Typography, TextField, Box } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AlarmOnIcon from '@material-ui/icons/AlarmOn';
 import HistoryIcon from '@material-ui/icons/History';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 
 import formatDateTime from '../../utils/formatDateTime';
 import Biblia from '../../Models/Biblia';
@@ -15,35 +18,110 @@ import api from '../../services/service';
 import styles from './index.module.css';
 
 export default function Home() {
+	const router = useRouter();
 	const [biblias, setBiblias] = useState<Biblia[]>();
+	const [bibliasShow, setBibliasShow] = useState<Biblia[]>();
+	const [bibliasFiltred, setBibliasFiltred] = useState<Biblia[]>();
 	const [isLoading, setIsLoading] = useState(true);
+	const [itensPerPag, setItensPerPag] = useState(2);
+	const [currentPage, setCurrentPage] = useState(1);
+
+	function handleShowBiblia(bibliasParams: Biblia[]) {
+		const t = [];
+		for (let i = 0; i < itensPerPag; i += 1) {
+			if (bibliasParams.length === i) break;
+			t.push(bibliasParams[i]);
+		}
+		// console.log('Biblias que serão mostradas', t);
+		setBibliasShow(t);
+	}
+
+	function handlePagination(page: number) {
+		const fim = page * itensPerPag;
+		const inicio = fim - itensPerPag;
+		const t = [];
+		for (let i = inicio; i < fim; i += 1) {
+			if (bibliasFiltred.length === i) break;
+			t.push(bibliasFiltred[i]);
+		}
+		setBibliasShow(t);
+	}
+
 	useEffect(() => {
 		async function getData() {
 			const { data } = await api.get<Biblia[]>('/api/PocketNewTestament');
 			setBiblias(data);
+			setBibliasFiltred(data);
+			handleShowBiblia(data);
 			setIsLoading(false);
 		}
 		getData();
-	});
+	}, []);
+
+	function handleFilterBiblia(e: ChangeEvent<HTMLInputElement>) {
+		const valueSearch = e.target.value.toLowerCase();
+		const firstLetter = valueSearch.split('')[0];
+		const capitulo = valueSearch.split(':')[0].split('@')[1] || '';
+		const versiculo = valueSearch.split(':')[1] || '';
+		const bibliasForFilter = [...biblias];
+		const resultFiltred = bibliasForFilter.filter(item => {
+			if (firstLetter === '@') {
+				return (
+					item.capitulo.toString() === capitulo &&
+					item.versiculo.toString() === versiculo
+				);
+			}
+			return (
+				item.titulo.toLowerCase().indexOf(valueSearch) > -1 ||
+				item.descricao.toLowerCase().indexOf(valueSearch) > -1 ||
+				item.capitulo.toString().indexOf(valueSearch) > -1 ||
+				item.versiculo.toString().indexOf(valueSearch) > -1
+			);
+		});
+		if (resultFiltred) {
+			setBibliasFiltred(resultFiltred);
+			handleShowBiblia(resultFiltred);
+		}
+		setCurrentPage(1);
+	}
 
 	if (isLoading) return <div>Carregando</div>;
 	return (
 		<div className={styles.container}>
-			<TextField
-				id="outlined-search"
-				label="Pesquisar"
-				type="search"
-				variant="outlined"
-			/>
-			<Grid container spacing={1}>
+			<Grid container spacing={1} justify="center" alignItems="center">
+				<Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+					<div className={styles.inputSearch}>
+						<TextField
+							id="outlined-search"
+							label="Pesquisar"
+							type="search"
+							variant="outlined"
+							onChange={handleFilterBiblia}
+						/>
+					</div>
+				</Grid>
+				<Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+					<Box display="flex" justifyContent="flex-end" alignItems="flex-end">
+						<Button
+							variant="contained"
+							color="primary"
+							className={styles.buttonConfirm}
+							startIcon={<AddBoxIcon />}
+							size="large"
+							onClick={() => router.push(`/Add`)}
+						>
+							Adicionar
+						</Button>
+					</Box>
+				</Grid>
 				{!isLoading &&
-					biblias.map((biblia, index) => (
+					bibliasFiltred &&
+					bibliasShow.map(biblia => (
 						// eslint-disable-next-line react/no-array-index-key
-						<Grid key={index} item xs={12} sm={12} md={12} lg={12} xl={12}>
+						<Grid key={biblia.id} item xs={12} sm={12} md={12} lg={12} xl={12}>
 							<Paper elevation={3} className={styles.block}>
 								<Grid container spacing={1}>
 									<Grid item xs={10} sm={10} md={4} lg={4} xl={4}>
-										{/* <div className={styles.boxLeft}> */}
 										<div className={styles.title}>
 											<Typography
 												variant="h3"
@@ -73,8 +151,6 @@ export default function Home() {
 											{formatDateTime(biblia.updatedAt)}
 										</div>
 									</Grid>
-									{/* </div> */}
-									{/* <div className={styles.boxRight}> */}
 									<Grid item xs={10} sm={10} md={6} lg={6} xl={6}>
 										<div className={styles.boxDescription}>
 											<Typography variant="h5" component="h6" gutterBottom>
@@ -85,12 +161,14 @@ export default function Home() {
 									<Grid item xs={10} sm={10} md={2} lg={2} xl={2}>
 										<div className={styles.buttons}>
 											<IconButton
-												aria-label="delete"
+												onClick={() => router.push(`/Edit/${biblia.id}`)}
+												aria-label="edit"
 												className="{classes.margin}"
 											>
 												<EditIcon fontSize="large" />
 											</IconButton>
 											<IconButton
+												onClick={() => router.push(`/Delete/${biblia.id}`)}
 												aria-label="delete"
 												className="{classes.margin}"
 											>
@@ -98,13 +176,50 @@ export default function Home() {
 											</IconButton>
 										</div>
 									</Grid>
-									{/* </div> */}
 								</Grid>
 							</Paper>
 						</Grid>
 					))}
+				{bibliasFiltred.length > 0 && (
+					<Grid
+						item
+						xs={12}
+						sm={12}
+						md={12}
+						lg={12}
+						xl={12}
+						className={styles.pagination}
+					>
+						<Pagination
+							count={Math.ceil(bibliasFiltred.length / itensPerPag)}
+							showFirstButton
+							showLastButton
+							page={currentPage}
+							onChange={(event, page) => {
+								// eslint-disable-next-line no-alert
+								setCurrentPage(page);
+								handlePagination(page);
+							}}
+						/>
+					</Grid>
+				)}
+
+				{bibliasFiltred.length === 0 && (
+					<Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+						<Paper elevation={3} className={styles.block}>
+							<Grid container spacing={1}>
+								<Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+									<div className={styles.title}>
+										<Typography variant="h3" component="h4" gutterBottom noWrap>
+											Sem resultados!
+										</Typography>
+									</div>
+								</Grid>
+							</Grid>
+						</Paper>
+					</Grid>
+				)}
 			</Grid>
-			<Pagination count={10} showFirstButton showLastButton />
 		</div>
 	);
 }

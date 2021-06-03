@@ -7,8 +7,9 @@ import styles from './index.module.css';
 export default function Login() {
 	const router = useRouter();
 	function handleHome(): void {
-		router.push('/Add');
+		router.push('/Home');
 	}
+
 	return (
 		<div className={styles.container}>
 			<Button

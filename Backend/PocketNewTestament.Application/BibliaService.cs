@@ -20,6 +20,10 @@ namespace PocketNewTestament.Application
         {
            return await _geralPersist.GetAll();
         }
+        public async Task<Biblia> GetById(int id)
+        {
+           return await _geralPersist.GetById(id);
+        }
         public async Task<Biblia> Add(Biblia model)
         {
             try{

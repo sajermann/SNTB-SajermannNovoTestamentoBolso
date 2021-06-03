@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 // Imports Material UI
@@ -12,15 +12,18 @@ import Biblia from '../../Models/Biblia';
 import styles from './index.module.css';
 import api from '../../services/service';
 
-export default function Home() {
+export default function Edit() {
 	const router = useRouter();
+	const { id } = router.query;
 	const [biblia, setBiblia] = useState<Biblia>({
+		id: 0,
 		titulo: '',
 		capitulo: 0,
 		versiculo: 0,
 		descricao: '',
 	});
 	const [canSave, setCanSave] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 
 	function verifyCanSave(bibliaNow): void {
 		if (
@@ -59,17 +62,26 @@ export default function Home() {
 		verifyCanSave(bibliaNew);
 	}
 
-	async function handleAdd() {
-		const result = await api.post('/api/PocketNewTestament', biblia);
+	async function handleEdit() {
+		const result = await api.put('/api/PocketNewTestament', biblia);
 		console.log(result);
 		if (result.status === 200) {
-			toast.success('Registro incluso com sucesso');
+			toast.success('Registro editado com sucesso');
 			router.push('/Home');
 		} else {
 			toast.error('Ocorreu um erro');
 			console.log(result);
 		}
 	}
+
+	useEffect(() => {
+		async function getData() {
+			const { data } = await api.get<Biblia>(`/api/PocketNewTestament/${id}`);
+			setBiblia(data);
+			setIsLoading(false);
+		}
+		if (id) getData();
+	}, [id]);
 
 	function handleHome(): void {
 		router.push('/Home');
@@ -79,8 +91,19 @@ export default function Home() {
 		<div className={styles.container}>
 			<div className={styles.divInput}>
 				<Typography variant="h3" component="h4" gutterBottom noWrap>
-					Adicionar Registro
+					Editar Registro
 				</Typography>
+			</div>
+			<div className={styles.divInput}>
+				<TextField
+					fullWidth
+					id="inputId"
+					className=""
+					label="Id"
+					value={biblia.id}
+					name="id"
+					disabled
+				/>
 			</div>
 			<div className={styles.divInput}>
 				<TextField
@@ -137,7 +160,7 @@ export default function Home() {
 					color="primary"
 					className={styles.buttonConfirm}
 					startIcon={<CheckBoxOutlinedIcon />}
-					onClick={handleAdd}
+					onClick={handleEdit}
 					disabled={!canSave}
 				>
 					Salvar
