@@ -11,6 +11,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import AlarmOnIcon from '@material-ui/icons/AlarmOn';
 import HistoryIcon from '@material-ui/icons/History';
 import AddBoxIcon from '@material-ui/icons/AddBox';
+import Skeleton from '@material-ui/lab/Skeleton';
+import Tooltip from '@material-ui/core/Tooltip';
+import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 
 import formatDateTime from '../../utils/formatDateTime';
 import formatSize from '../../utils/formatSize';
@@ -90,7 +93,49 @@ export default function Home() {
 		setCurrentPage(1);
 	}
 
-	if (isLoading) return <div>Carregando</div>;
+	if (isLoading) {
+		return (
+			<div className={styles.container}>
+				<Grid container spacing={1} justify="center" alignItems="center">
+					<Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+						<Paper elevation={3} className={styles.block}>
+							<Skeleton width="100%" />
+						</Paper>
+					</Grid>
+					<Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+						<div className={styles.inputSearch}>
+							<Skeleton width={350} height={80} />
+						</div>
+					</Grid>
+					<Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+						<Box display="flex" justifyContent="flex-end" alignItems="flex-end">
+							<Skeleton width={150} height={70} />
+						</Box>
+					</Grid>
+					{['1', '2'].map(biblia => (
+						// eslint-disable-next-line react/no-array-index-key
+						<Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+							<Paper elevation={3} className={styles.block}>
+								<Skeleton width="100%" height={200} />
+							</Paper>
+						</Grid>
+					))}
+
+					<Grid
+						item
+						xs={12}
+						sm={12}
+						md={12}
+						lg={12}
+						xl={12}
+						className={styles.pagination}
+					>
+						<Skeleton width="60%" height={50} />
+					</Grid>
+				</Grid>
+			</div>
+		);
+	}
 	return (
 		<div className={styles.container}>
 			<Grid container spacing={1} justify="center" alignItems="center">
@@ -110,6 +155,12 @@ export default function Home() {
 							variant="outlined"
 							onChange={handleFilterBiblia}
 						/>
+						<Tooltip
+							title="Dica: Pesquise por Cap/Ver utilizando o @. Ex: @1:15"
+							placement="right"
+						>
+							<ContactSupportIcon fontSize="large" />
+						</Tooltip>
 					</div>
 				</Grid>
 				<Grid item xs={6} sm={6} md={6} lg={6} xl={6}>

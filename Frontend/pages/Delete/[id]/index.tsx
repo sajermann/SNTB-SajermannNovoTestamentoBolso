@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { Button, TextField, Typography } from '@material-ui/core';
 import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 import CancelPresentationIcon from '@material-ui/icons/CancelPresentation';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 import { toast } from 'react-toastify';
 
@@ -49,6 +50,34 @@ export default function Delete() {
 		router.push('/Home');
 	}
 
+	if (isLoading) {
+		return (
+			<div className={styles.container}>
+				<div className={styles.divInput}>
+					<Skeleton width={350} height={70} />
+				</div>
+				<div className={styles.divInput}>
+					<Skeleton width="100%" height={70} />
+				</div>
+				<div className={styles.divInput}>
+					<Skeleton width="100%" height={70} />
+				</div>
+				<div className={styles.divInput}>
+					<Skeleton width="100%" height={70} />
+				</div>
+				<div className={styles.divInput}>
+					<Skeleton width="100%" height={70} />
+				</div>
+				<div className={styles.divInput}>
+					<Skeleton width="100%" height={70} />
+				</div>
+				<div className={styles.divButtons}>
+					<Skeleton width={150} height={70} />
+					<Skeleton width={150} height={70} />
+				</div>
+			</div>
+		);
+	}
 	return (
 		<div className={styles.container}>
 			<div className={styles.divInput}>

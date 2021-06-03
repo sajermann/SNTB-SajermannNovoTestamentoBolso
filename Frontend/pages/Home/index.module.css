@@ -1,7 +1,7 @@
 .container{
 	max-width: 900px;
 	margin: auto;
-	margin-top: 30px;
+	/* margin-top: 30px; */
 }
 
 .block{
@@ -15,6 +15,9 @@
 
 .inputSearch{
 	margin-left: 15px;
+	display: flex;
+	align-items: center;
+
 }
 .title{
 	display: flex;

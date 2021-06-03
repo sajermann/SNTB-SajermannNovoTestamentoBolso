@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		drawer: {
 			width: drawerWidth,
 			flexShrink: 0,
-			marginBottom: 80,
+			// marginBottom: 80,
 		},
 		drawerPaper: {
 			width: drawerWidth,
@@ -100,7 +100,7 @@ export default function Header() {
 	return (
 		<>
 			<AppBar
-				position="fixed"
+				position="static"
 				className={clsx(classes.appBar, {
 					[classes.appBarShift]: open,
 				})}
