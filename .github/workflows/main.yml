@@ -25,6 +25,17 @@ on:
   push:
     branches:
       -main
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Backend/Publish
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2
 uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
 with:
   ftp_host: ${{ secrets.fpt_server_linkhost}}
