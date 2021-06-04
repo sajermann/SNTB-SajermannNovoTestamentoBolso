@@ -68,8 +68,7 @@ jobs:
       - name: Publish dotnet
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 5.0.x
-          working-directory: ./Backend/
+          dotnet-version: 5.0.202
       - name: Listar Pastas
         working-directory: ./Backend/
         run: ls
