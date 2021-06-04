@@ -1,27 +1,4 @@
-# Agora está funcionando
-on: 
-  push:
-    branches:
-      - main
-name: 🚀 Deploy website on push
-jobs:
-  web-deploy:
-    name: 🎉 Deploy
-    runs-on: ubuntu-latest
-    working-directory: ./Backend/Publish/
-    
-    steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v2
-      
-    - name: FTP Deploy
-      uses: SamKirkland/FTP-Deploy-Action@4.0.0
-      
-      with:
-        server: ${{ secrets.ftp_server_linkhost}}
-        username: ${{ secrets.ftp_username_linkhost }}
-        password: ${{ secrets.ftp_pass_linkhost }}
-        server-dir: /1.sajermann.com/
+# # Agora está funcionando
 # on: 
 #   push:
 #     branches:
@@ -31,18 +8,38 @@ jobs:
 #   web-deploy:
 #     name: 🎉 Deploy
 #     runs-on: ubuntu-latest
-#     defaults:
-#       run:
-#         working-directory: Backend/Publish
+#     working-directory: ./Backend/Publish/
+    
 #     steps:
 #     - name: 🚚 Get latest code
 #       uses: actions/checkout@v2
-# uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
-# with:
-#   ftp_host: ${{ secrets.fpt_server_linkhost}}
-#   ftp_username: ${{ secrets.ftp_username_linkhost }}
-#   ftp_password:  ${{ secrets.ftp_pass_linkhost }}
-#   local_source_dir: "Backend/Publish"
-#   dist_target_dir: "/1.sajermann.com/"
-#   delete: "true"
-#   exclude: "'^logs/' '^README.md'"
+      
+#     - name: FTP Deploy
+#       uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      
+#       with:
+#         server: ${{ secrets.ftp_server_linkhost}}
+#         username: ${{ secrets.ftp_username_linkhost }}
+#         password: ${{ secrets.ftp_pass_linkhost }}
+#         server-dir: /1.sajermann.com/
+on: 
+  push:
+    branches:
+      - main
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2
+uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
+with:
+  ftp_host: ${{ secrets.ftp_server_linkhost}}
+  ftp_username: ${{ secrets.ftp_username_linkhost }}
+  ftp_password:  ${{ secrets.ftp_pass_linkhost }}
+  local_source_dir: "./Backend/Publish"
+  dist_target_dir: "/1.sajermann.com/"
+  delete: "true"
+  exclude: "'^logs/' '^README.md'"
