@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Backend/Publish
+        working-directory: ./Backend/Publish
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v2
