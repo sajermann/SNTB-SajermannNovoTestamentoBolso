@@ -14,25 +14,25 @@ jobs:
       uses: actions/checkout@v2
 
       #Daqui até... é do .Net
-    - name: Publish dotnet
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.202
-    - name: Listar Pastas
-      working-directory: ./Backend/
-      run: ls
-    - name: Versão do SDK
-      working-directory: ./Backend/
-      run: dotnet --version
-    - name: Restore dependencies
-      working-directory: ./Backend/
-      run: dotnet restore
-    - name: Build
-      working-directory: ./Backend/
-      run: dotnet build --no-restore
-    - name: Publish
-      working-directory: ./Backend/
-      run: dotnet publish -o Publish
+    # - name: Publish dotnet
+    #   uses: actions/setup-dotnet@v1
+    #   with:
+    #     dotnet-version: 5.0.202
+    # - name: Listar Pastas
+    #   working-directory: ./Backend/
+    #   run: ls
+    # - name: Versão do SDK
+    #   working-directory: ./Backend/
+    #   run: dotnet --version
+    # - name: Restore dependencies
+    #   working-directory: ./Backend/
+    #   run: dotnet restore
+    # - name: Build
+    #   working-directory: ./Backend/
+    #   run: dotnet build --no-restore
+    # - name: Publish
+    #   working-directory: ./Backend/
+    #   run: dotnet publish -o Publish
       #Até aqui
 
       #Delete FTP - Teste
