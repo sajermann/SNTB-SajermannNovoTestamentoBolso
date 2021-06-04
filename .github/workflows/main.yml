@@ -73,6 +73,9 @@ jobs:
       - name: Listar Pastas
         working-directory: ./Backend/
         run: ls
+      - name: Versão do SDK
+        working-directory: ./Backend/
+        run: dotnet --version
       - name: Restore dependencies
         working-directory: ./Backend/
         run: dotnet restore
