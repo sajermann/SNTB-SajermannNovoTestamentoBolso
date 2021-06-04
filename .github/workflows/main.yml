@@ -95,3 +95,4 @@ jobs:
           password:  ${{ secrets.ftp_pass_linkhost }}
           local_folder: "./Backend/Publish/"
           remote_folder: "/1.sajermann.com/"
+          cleanup: true
