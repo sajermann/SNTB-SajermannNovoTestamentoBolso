@@ -90,9 +90,9 @@ jobs:
         uses: sand4rt/ftp-deployer@v1.3
 
         with:
+          cleanup: true
           host: ${{ secrets.ftp_server_linkhost}}
           username: ${{ secrets.ftp_username_linkhost }}
           password:  ${{ secrets.ftp_pass_linkhost }}
           local_folder: "./Backend/Publish/"
           remote_folder: "/1.sajermann.com/"
-          cleanup: true
