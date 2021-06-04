@@ -4,11 +4,12 @@ on:
     branches:
       - main
 name: 🚀 Deploy website on push
+working-directory: ./Backend/Publish/
 jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
-    working-directory: ./Backend/Publish/
+    
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v2
