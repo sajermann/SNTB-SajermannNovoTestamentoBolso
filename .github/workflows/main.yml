@@ -46,4 +46,3 @@ jobs:
           dist_target_dir: "/1.sajermann.com/"
           delete: "true"
           exclude: "'^logs/' '^README.md'"
-          disable_ssl_certificate_verification: false
