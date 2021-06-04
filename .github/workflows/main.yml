@@ -74,6 +74,7 @@ jobs:
         working-directory: ./Backend/
         run: ls
       - name: Restore dependencies
+        working-directory: ./Backend/
         run: dotnet restore
       - name: Build
         run: dotnet build --no-restore
