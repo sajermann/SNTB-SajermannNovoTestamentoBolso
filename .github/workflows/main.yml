@@ -34,17 +34,38 @@ jobs:
       working-directory: ./Backend/
       run: dotnet publish -o Publish
       #Até aqui
-      
-    - name: FTP Deploy
-      uses: SamKirkland/FTP-Deploy-Action@4.0.0
-      
+
+      #Delete FTP - Teste
+    - name: Clean ReactJS precache-manifest and logs
+      uses: StephanThierry/ftp-delete-action@v1
       with:
-        server: ${{ secrets.ftp_server_linkhost}}
-        username: ${{ secrets.ftp_username_linkhost }}
+        host: ${{ secrets.ftp_server_linkhost }}
+        user: ${{ secrets.ftp_username_linkhost }}
         password: ${{ secrets.ftp_pass_linkhost }}
-        server-dir: /1.sajermann.com/
-        local-dir: ./Backend/Publish/
-        dangerous-clean-slate: true
+        remoteFiles: "precache-manifest.*.js;logs/*.log"
+        remoteDirectories: "/1.sajermann.com/"
+        ignoreSSL: "1"
+      #Fim Delete  
+     #parando o deploy pra testar se o delete funcionou 
+    # - name: FTP Deploy
+    #   uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      
+    #   with:
+    #     server: ${{ secrets.ftp_server_linkhost}}
+    #     username: ${{ secrets.ftp_username_linkhost }}
+    #     password: ${{ secrets.ftp_pass_linkhost }}
+    #     server-dir: /1.sajermann.com/
+    #     local-dir: ./Backend/Publish/
+    #     dangerous-clean-slate: true
+
+
+
+
+
+
+
+
+
 
 # # https://github.com/marketplace/actions/simple-ftp-deploy
 # on: 
