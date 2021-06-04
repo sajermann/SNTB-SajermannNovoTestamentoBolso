@@ -1,28 +1,50 @@
-# # https://github.com/marketplace/actions/ftp-deploy
-# on: 
-#   push:
-#     branches:
-#       - main
-# name: 🚀 Deploy website on push
-# jobs:
-#   web-deploy:
-#     name: 🎉 Deploy
-#     runs-on: ubuntu-latest
-#     working-directory: ./Backend/Publish/
-    
-#     steps:
-#     - name: 🚚 Get latest code
-#       uses: actions/checkout@v2
+# https://github.com/marketplace/actions/ftp-deploy
+on: 
+  push:
+    branches:
+      - main
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+        
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2
+
+        #Daqui até... é do .Net
+      - name: Publish dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.202
+      - name: Listar Pastas
+        working-directory: ./Backend/
+        run: ls
+      - name: Versão do SDK
+        working-directory: ./Backend/
+        run: dotnet --version
+      - name: Restore dependencies
+        working-directory: ./Backend/
+        run: dotnet restore
+      - name: Build
+        working-directory: ./Backend/
+        run: dotnet build --no-restore
+      - name: Publish
+        working-directory: ./Backend/
+        run: dotnet publish -o Publish
+        #Até aqui
       
-#     - name: FTP Deploy
-#       uses: SamKirkland/FTP-Deploy-Action@4.0.0
+    - name: FTP Deploy
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
       
-#       with:
-#         server: ${{ secrets.ftp_server_linkhost}}
-#         username: ${{ secrets.ftp_username_linkhost }}
-#         password: ${{ secrets.ftp_pass_linkhost }}
-#         server-dir: /1.sajermann.com/
-#         local-dir: ./Backend/Publish/
+      with:
+        server: ${{ secrets.ftp_server_linkhost}}
+        username: ${{ secrets.ftp_username_linkhost }}
+        password: ${{ secrets.ftp_pass_linkhost }}
+        server-dir: /1.sajermann.com/
+        local-dir: ./Backend/Publish/
+        dangerous-clean-slate: true
 
 # # https://github.com/marketplace/actions/simple-ftp-deploy
 # on: 
@@ -50,49 +72,49 @@
 #           delete: "true"
 #           exclude: "'^logs/' '^README.md'"
 
-# https://github.com/marketplace/actions/ftp-deployer
-on: 
-  push:
-    branches:
-      - main
-name: 🚀 Deploy website on push
-jobs:
-  web-deploy:
-    name: 🎉 Deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🚚 Get latest code
-        uses: actions/checkout@v2
+# # https://github.com/marketplace/actions/ftp-deployer
+# on: 
+#   push:
+#     branches:
+#       - main
+# name: 🚀 Deploy website on push
+# jobs:
+#   web-deploy:
+#     name: 🎉 Deploy
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: 🚚 Get latest code
+#         uses: actions/checkout@v2
 
-        #Daqui até... é do .Net
-      - name: Publish dotnet
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 5.0.202
-      - name: Listar Pastas
-        working-directory: ./Backend/
-        run: ls
-      - name: Versão do SDK
-        working-directory: ./Backend/
-        run: dotnet --version
-      - name: Restore dependencies
-        working-directory: ./Backend/
-        run: dotnet restore
-      - name: Build
-        working-directory: ./Backend/
-        run: dotnet build --no-restore
-      - name: Publish
-        working-directory: ./Backend/
-        run: dotnet publish -o Publish
-        #Até aqui
+#         #Daqui até... é do .Net
+#       - name: Publish dotnet
+#         uses: actions/setup-dotnet@v1
+#         with:
+#           dotnet-version: 5.0.202
+#       - name: Listar Pastas
+#         working-directory: ./Backend/
+#         run: ls
+#       - name: Versão do SDK
+#         working-directory: ./Backend/
+#         run: dotnet --version
+#       - name: Restore dependencies
+#         working-directory: ./Backend/
+#         run: dotnet restore
+#       - name: Build
+#         working-directory: ./Backend/
+#         run: dotnet build --no-restore
+#       - name: Publish
+#         working-directory: ./Backend/
+#         run: dotnet publish -o Publish
+#         #Até aqui
       
-      - name: FTP Deployer
-        uses: sand4rt/ftp-deployer@v1.3
+#       - name: FTP Deployer
+#         uses: sand4rt/ftp-deployer@v1.3
 
-        with:
-          cleanup: true
-          host: ${{ secrets.ftp_server_linkhost}}
-          username: ${{ secrets.ftp_username_linkhost }}
-          password:  ${{ secrets.ftp_pass_linkhost }}
-          local_folder: "./Backend/Publish/"
-          remote_folder: "/1.sajermann.com/"
+#         with:
+#           cleanup: true
+#           host: ${{ secrets.ftp_server_linkhost}}
+#           username: ${{ secrets.ftp_username_linkhost }}
+#           password:  ${{ secrets.ftp_pass_linkhost }}
+#           local_folder: "./Backend/Publish/"
+#           remote_folder: "/1.sajermann.com/"
