@@ -8,7 +8,7 @@ jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
-    
+    working-directory: ./Backend/Publish
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v2
@@ -21,7 +21,6 @@ jobs:
         username: ${{ secrets.ftp_username_linkhost }}
         password: ${{ secrets.ftp_pass_linkhost }}
         server-dir: /1.sajermann.com/
-        working-directory: ./Backend/Publish/
 # on: 
 #   push:
 #     branches:
