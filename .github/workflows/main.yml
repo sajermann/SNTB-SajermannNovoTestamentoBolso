@@ -79,8 +79,10 @@ jobs:
         working-directory: ./Backend/
         run: dotnet restore
       - name: Build
+        working-directory: ./Backend/
         run: dotnet build --no-restore
       - name: Publish
+        working-directory: ./Backend/
         run: dotnet publish -o Publish
         #Até aqui
       
