@@ -32,14 +32,16 @@ jobs:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v2
-uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
-with:
-  ftp_host: ${{ secrets.ftp_server_linkhost}}
-  ftp_username: ${{ secrets.ftp_username_linkhost }}
-  ftp_password:  ${{ secrets.ftp_pass_linkhost }}
-  local_source_dir: "./Backend/Publish"
-  dist_target_dir: "/1.sajermann.com/"
-  delete: "true"
-  exclude: "'^logs/' '^README.md'"
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
+      
+      - name: teste
+        uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
+    with:
+      ftp_host: ${{ secrets.ftp_server_linkhost}}
+      ftp_username: ${{ secrets.ftp_username_linkhost }}
+      ftp_password:  ${{ secrets.ftp_pass_linkhost }}
+      local_source_dir: "./Backend/Publish"
+      dist_target_dir: "/1.sajermann.com/"
+      delete: "true"
+      exclude: "'^logs/' '^README.md'"
