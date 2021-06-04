@@ -42,7 +42,7 @@ jobs:
         host: ${{ secrets.ftp_server_linkhost }}
         user: ${{ secrets.ftp_username_linkhost }}
         password: ${{ secrets.ftp_pass_linkhost }}
-        remoteFiles: "*"
+        remoteFiles: "*.*"
         workingDir: "./1.sajermann.com/"
         ignoreSSL: "1"
       #Fim Delete  
