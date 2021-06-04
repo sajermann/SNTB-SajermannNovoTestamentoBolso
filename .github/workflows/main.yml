@@ -8,8 +8,8 @@ jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
-    defaults:
-      run:
+    env:
+      # run:
         working-directory: ./Backend/Publish/
     steps:
     - name: 🚚 Get latest code
