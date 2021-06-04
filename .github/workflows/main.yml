@@ -14,25 +14,25 @@ jobs:
       uses: actions/checkout@v2
 
       #Daqui até... é do .Net
-    # - name: Publish dotnet
-    #   uses: actions/setup-dotnet@v1
-    #   with:
-    #     dotnet-version: 5.0.202
-    # - name: Listar Pastas
-    #   working-directory: ./Backend/
-    #   run: ls
-    # - name: Versão do SDK
-    #   working-directory: ./Backend/
-    #   run: dotnet --version
-    # - name: Restore dependencies
-    #   working-directory: ./Backend/
-    #   run: dotnet restore
-    # - name: Build
-    #   working-directory: ./Backend/
-    #   run: dotnet build --no-restore
-    # - name: Publish
-    #   working-directory: ./Backend/
-    #   run: dotnet publish -o Publish
+    - name: Publish dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.202
+    - name: Listar Pastas
+      working-directory: ./Backend/
+      run: ls
+    - name: Versão do SDK
+      working-directory: ./Backend/
+      run: dotnet --version
+    - name: Restore dependencies
+      working-directory: ./Backend/
+      run: dotnet restore
+    - name: Build
+      working-directory: ./Backend/
+      run: dotnet build --no-restore
+    - name: Publish
+      working-directory: ./Backend/
+      run: dotnet publish -o Publish
       #Até aqui
 
       #Delete FTP - Teste
@@ -46,17 +46,17 @@ jobs:
         # workingDir: "./1.sajermann.com/"
         ignoreSSL: "1"
       #Fim Delete  
-     #parando o deploy pra testar se o delete funcionou 
-    # - name: FTP Deploy
-    #   uses: SamKirkland/FTP-Deploy-Action@4.0.0
+     
+    - name: FTP Deploy
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
       
-    #   with:
-    #     server: ${{ secrets.ftp_server_linkhost}}
-    #     username: ${{ secrets.ftp_username_linkhost }}
-    #     password: ${{ secrets.ftp_pass_linkhost }}
-    #     server-dir: /1.sajermann.com/
-    #     local-dir: ./Backend/Publish/
-    #     dangerous-clean-slate: true
+      with:
+        server: ${{ secrets.ftp_server_linkhost}}
+        username: ${{ secrets.ftp_username_linkhost }}
+        password: ${{ secrets.ftp_pass_linkhost }}
+        server-dir: /1.sajermann.com/
+        local-dir: ./Backend/Publish/
+        dangerous-clean-slate: true
 
 
 
