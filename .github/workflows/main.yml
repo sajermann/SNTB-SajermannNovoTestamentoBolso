@@ -22,6 +22,7 @@
 #         username: ${{ secrets.ftp_username_linkhost }}
 #         password: ${{ secrets.ftp_pass_linkhost }}
 #         server-dir: /1.sajermann.com/
+#         local-dir: ./Backend/Publish/
 
 # # https://github.com/marketplace/actions/simple-ftp-deploy
 # on: 
@@ -62,6 +63,18 @@ jobs:
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
+
+        #Daqui até... é do .Net
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+      - name: Publish
+        run: dotnet publish -o Publish
+        #Até aqui
       
       - name: FTP Deployer
         uses: sand4rt/ftp-deployer@v1.3
