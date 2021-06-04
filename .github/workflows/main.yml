@@ -37,7 +37,7 @@ jobs:
 
       #Delete FTP - Teste
     - name: Clean ReactJS precache-manifest and logs
-      uses: StephanThierry/ftp-delete-action@v1
+      uses: StephanThierry/ftp-delete-action@releases/v1.1
       with:
         host: ${{ secrets.ftp_server_linkhost }}
         user: ${{ secrets.ftp_username_linkhost }}
