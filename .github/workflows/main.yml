@@ -67,10 +67,11 @@ jobs:
         #Daqui até... é do .Net
       - name: Publish dotnet
         uses: actions/setup-dotnet@v1
-        working-directory: ./Backend/
         with:
           dotnet-version: 5.0.x
+          working-directory: ./Backend/
       - name: Restore dependencies
+        run: ls
         run: dotnet restore
       - name: Build
         run: dotnet build --no-restore
