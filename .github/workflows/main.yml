@@ -5,10 +5,10 @@ on:
       - main
 name: 🚀 Deploy website on push
 jobs:
-working-directory: ./Backend/Publish/
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
+    working-directory: ./Backend/Publish/
     
     steps:
     - name: 🚚 Get latest code
