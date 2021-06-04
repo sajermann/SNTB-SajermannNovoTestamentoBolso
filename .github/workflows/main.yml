@@ -21,7 +21,10 @@
 #         username: ${{ secrets.ftp_username_linkhost }}
 #         password: ${{ secrets.ftp_pass_linkhost }}
 #         server-dir: /1.sajermann.com/
-
+on: 
+  push:
+    branches:
+      -main
 uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
 with:
   ftp_host: ${{ secrets.fpt_server_linkhost}}
