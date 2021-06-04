@@ -16,7 +16,7 @@ jobs:
     
     - name: FTP Deploy
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
-      working-directory: ${{env.working-directory}}
+      working-directory: ${{ env.working-directory }}
       with:
         server: ${{ secrets.ftp_server_linkhost}}
         username: ${{ secrets.ftp_username_linkhost }}
