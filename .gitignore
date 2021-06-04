@@ -173,7 +173,8 @@ DocProject/Help/Html2
 DocProject/Help/html
 
 # Click-Once directory
-publish/
+# tirei esse publish para adicionar essa pasta no git para o deploy automatico
+# publish/
 
 # Publish Web Output
 *.[Pp]ublish.xml
