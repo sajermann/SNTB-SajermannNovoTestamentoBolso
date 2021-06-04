@@ -35,8 +35,9 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
       
-      - name: teste
+      - name: Simple FTP deploy
         uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
+
     with:
       ftp_host: ${{ secrets.ftp_server_linkhost}}
       ftp_username: ${{ secrets.ftp_username_linkhost }}
