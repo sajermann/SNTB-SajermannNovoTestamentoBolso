@@ -71,6 +71,7 @@ jobs:
           dotnet-version: 5.0.x
           working-directory: ./Backend/
       - name: Listar Pastas
+        working-directory: ./Backend/
         run: ls
       - name: Restore dependencies
         run: dotnet restore
