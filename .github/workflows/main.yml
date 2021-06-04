@@ -69,8 +69,8 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 5.0.x
+          working-directory: ./Backend/
       - name: Restore dependencies
-        working-directory: ./Backend/
         run: dotnet restore
       - name: Build
         run: dotnet build --no-restore
