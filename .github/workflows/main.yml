@@ -4,8 +4,8 @@ on:
     branches:
       - main
 name: 🚀 Deploy website on push
-working-directory: ./Backend/Publish/
 jobs:
+working-directory: ./Backend/Publish/
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
