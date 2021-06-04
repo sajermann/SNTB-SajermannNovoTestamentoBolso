@@ -17,7 +17,7 @@ jobs:
     - name: FTP Deploy
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
-        server: ${{ secrets.fpt_server_linkhost}}
+        server: ${{ secrets.ftp_server_linkhost}}
         username: ${{ secrets.ftp_username_linkhost }}
         password: ${{ secrets.ftp_pass_linkhost }}
         server-dir: /1.sajermann.com/
