@@ -1,0 +1,23 @@
+on: 
+  push:
+    branches:
+      -main
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Backend/Publish
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: ${{ secrets.FTP_SERVER_LINKHOST}}
+        username: ${{ secrets.FTP_USERNAME_LINKHOST }}
+        password: ${{ secrets.FTP_PASS_LINKHOST }}
+        server-dir: /1.sajermann.com
