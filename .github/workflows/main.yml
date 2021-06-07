@@ -1,4 +1,3 @@
-# https://github.com/marketplace/actions/ftp-deploy
 on: 
   push:
     branches:
@@ -13,7 +12,7 @@ jobs:
     - name: 🚚 Get latest code
       uses: actions/checkout@v2
 
-      #Daqui até... é do .Net
+      # Setup .NET Core SDK Acion - https://github.com/marketplace/actions/setup-net-core-sdk
     - name: Publish dotnet
       uses: actions/setup-dotnet@v1
       with:
@@ -33,9 +32,8 @@ jobs:
     - name: Publish
       working-directory: ./Backend/
       run: dotnet publish -o Publish
-      #Até aqui
-
-      #Delete FTP - Teste
+      
+      # FTP Delete Action - https://github.com/StephanThierry/ftp-delete-action
     - name: Delete Files
       uses: StephanThierry/ftp-delete-action@v1.1
       with:
@@ -43,10 +41,9 @@ jobs:
         user: ${{ secrets.ftp_username_linkhost }}
         password: ${{ secrets.ftp_pass_linkhost }}
         remoteFiles: "./1.sajermann.com/*;./1.sajermann.com/runtime/*"
-        # workingDir: "./1.sajermann.com/"
         ignoreSSL: "1"
-      #Fim Delete  
-     
+      
+      # FTP Deploy Action -  https://github.com/marketplace/actions/ftp-deploy
     - name: FTP Deploy
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       
