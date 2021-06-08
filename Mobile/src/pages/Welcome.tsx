@@ -4,7 +4,7 @@ import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
 import api from '../services/api';
 import Biblia from '../models/Biblia';
-import { TextInput } from 'react-native-gesture-handler';
+import { FlatList, TextInput } from 'react-native-gesture-handler';
 
 export function Welcome(){
   const [biblias, setBiblias] = useState<Biblia[]>()
@@ -27,32 +27,41 @@ export function Welcome(){
 	return(
     <SafeAreaView style={styles.container}>
 			<View style={styles.wrapper}>
-        <View style={styles.viewFilter}>
-      <TextInput
-        style={styles.inputFilter} 
-        placeholder="Pesquisar"
-        // onBlur={handleInputBlur}
-        // onFocus={handleInputFocus}
-        // onChangeText={handleInputChange}
-      />
-      <TouchableOpacity style={styles.buttonFilter} activeOpacity={0.7} onPress={handleStart} >
-            <Feather name="search" style={styles.buttonFilterIcon} />
-					</TouchableOpacity>
-          </View>
-				{
-          biblias?.length != undefined &&(
-          biblias.map((item)=>(
-            <Text style={styles.subtitle}>Item: {item.titulo}</Text>
-          ))
-          )
-        }
-				<Text>Oi</Text>
-					<TouchableOpacity style={styles.button} activeOpacity={0.7} onPress={handleStart} >
-            <Feather name="star" style={styles.buttonIcon} />
-						<Text style={styles.textFavorites}>
+        <View style={styles.viewHeader}>
+          <TextInput
+            style={styles.inputSearch} 
+            placeholder="Pesquisar"
+            // onBlur={handleInputBlur}
+            // onFocus={handleInputFocus}
+            // onChangeText={handleInputChange}
+          />
+          <TouchableOpacity style={styles.buttonSearch} activeOpacity={0.7} onPress={handleStart} >
+            <Feather name="search" style={styles.iconSearch} />
+          </TouchableOpacity>
+        </View>
+				<View style={styles.viewMain}>
+          <FlatList
+            data={biblias}
+            keyExtractor={(item)=>String(item.id)}
+            renderItem={({item})=>(
+              <TouchableOpacity style={styles.buttonCard} activeOpacity={0.7} onPress={handleStart} >
+                <Text style={styles.textCard}>
+                  {item.titulo}
+                </Text>
+                <Feather name="arrow-right" style={styles.iconEnter} /> 
+              </TouchableOpacity>
+            )}
+            showsVerticalScrollIndicator={true}
+          />
+        </View>
+        <View style={styles.viewFooter}>
+					<TouchableOpacity style={styles.buttonFavorite} activeOpacity={0.7} onPress={handleStart} >
+            <Feather name="star" style={styles.iconFavorite} />
+						<Text style={styles.textFavorite}>
               Favoritos
 						</Text>
 					</TouchableOpacity>
+        </View>
 			</View>
     </SafeAreaView>
   )
@@ -61,31 +70,36 @@ export function Welcome(){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
+    marginTop: 30
   },
-	wrapper:{
-		flex: 1,
-		justifyContent: 'space-around',
+  wrapper:{
+    flex: 1,
+    justifyContent: 'space-around',
     alignItems: 'center',
-		// paddingHorizontal: 20 
-	},
-  inputFilter:{
-		borderBottomWidth: 1,
-		borderTopWidth: 1,
-		borderLeftWidth: 1,
-		borderRightWidth: 1,
-		borderBottomColor: 'gray',
+    // paddingHorizontal: 20 
+  },
+  viewHeader:{
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  inputSearch:{
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderBottomColor: 'gray',
     borderBottomLeftRadius: 5,
     borderTopLeftRadius: 5,
-		color: 'gray',
-		width: '50%',
+    color: 'gray',
+    width: '50%',
     height: 50,
-		fontSize: 18,
-		// marginTop: 50,
-		padding: 10,
-		textAlign: 'center'
-	},
-  buttonFilter:{
+    fontSize: 18,
+    // marginTop: 50,
+    padding: 10,
+    textAlign: 'center'
+  },
+  buttonSearch:{
     width: 50,
     height: 50,
     backgroundColor: 'green',
@@ -94,35 +108,47 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 5,
     borderTopRightRadius: 5,
   },
-  viewFilter:{
+  iconSearch:{
+    color: '#fff',
+    fontSize: 32,
+  },
+  viewMain:{
+		flex:1,
+		width: '100%',
+		justifyContent: 'center',
+    padding: 10,
+  },
+  buttonCard:{
+    height: 50,
+    borderTopWidth: 1,
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    width: '100%',
+    marginTop: 5,
+    marginBottom: 5,
+    backgroundColor: '#53f83d',
+    fontSize: 22,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 5
+  },
+  textCard:{
+    // textAlign: 'center',
+    fontSize: 42,
+    color: 'red',
+  },
+  iconEnter:{
+    color: 'black',
+    fontSize: 42
+  },
+  viewFooter:{
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
   },
-  buttonFilterIcon:{
-    color: '#fff',
-    fontSize: 32,
-
-  },
-  title:{
-      fontSize: 28,
-      fontWeight: 'bold',
-      textAlign: 'center',
-
-      marginTop: 40,
-
-			lineHeight: 34
-  },
-  subtitle:{
-      textAlign: 'center',
-      fontSize: 18,
-      paddingHorizontal: 20,
-      color: 'red'
-  },
-	image:{
-			height: Dimensions.get('window').width * .7
-	},
-  button: {
+  buttonFavorite: {
       backgroundColor: 'green',
       justifyContent: 'space-around',
       alignItems: 'center',
@@ -133,12 +159,14 @@ const styles = StyleSheet.create({
       width: '100%',
       marginBottom: -5
   },
-  buttonIcon:{
+  iconFavorite:{
 		fontSize: 52,
 		color: '#fff'
   },
-  textFavorites:{
+  textFavorite:{
     color: '#fff',
     fontSize: 52
-  }
+  },
+  
+
 })
