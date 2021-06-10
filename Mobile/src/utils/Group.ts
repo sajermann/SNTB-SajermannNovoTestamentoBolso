@@ -46,7 +46,7 @@ export const groupVerse = (biblias: Biblia[], book: string, chapter: string): Ar
 
 }
 export const groupContent = (biblias: Biblia[], book: string, chapter: string, verse: string): Array<string> => {
-  console.log(book, chapter)
+  //console.log(book, chapter)
   const newArray  = Array<string>();
 
   for(let i = 0; i < biblias.length; i++){
