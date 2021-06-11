@@ -30,28 +30,32 @@ export function Reading(){
   const [highlight, setHighlight] = useState(false);
   useEffect(()=>{
     scrollViewRef.current?.scrollTo({x: 0, y: startPosition, animated: true});
-    fadeIn();
+    handleAnimation()
   },[startPosition]);
 
-  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const [animation, setAnimation] = useState(new Animated.Value(0))
 
-  const fadeIn = () => {
-    // Will change fadeAnim value to 1 in 5 seconds
-    Animated.timing(fadeAnim, {
-      toValue: 1,
+  const handleAnimation = () => {
+    Animated.timing(animation, {
+      toValue:1,
       duration: 1000,
-      useNativeDriver: true
-    }).start();
-  };
+      useNativeDriver: false
+    }).start( () => {
+      Animated.timing(animation,{
+        toValue:0,
+        duration: 1000,
+        useNativeDriver: false
+      }).start()
+    })
+  }
 
-  const fadeOut = () => {
-    // Will change fadeAnim value to 0 in 3 seconds
-    Animated.timing(fadeAnim, {
-      toValue: 0,
-      duration: 3000,
-      useNativeDriver: true
-    }).start();
-  };
+  const boxInterpolation =  animation.interpolate({
+    inputRange: [0, 1],
+    outputRange:["#fff" , "rgb(90,210,244)"]
+  })
+  const animatedStyle = {
+    backgroundColor: boxInterpolation
+  }
 
   if(!biblias){
     return <></>
@@ -86,13 +90,7 @@ export function Reading(){
               <Animated.Text 
                 // style={verifyVerse(item, verse) && styles.teste}
                 
-                style={[
-                  verifyVerse(item, verse) && styles.fadingContainer,
-                  {
-                    // Bind opacity to animated value
-                    opacity: fadeAnim
-                  }
-                ]}
+                style={verifyVerse(item, verse) && {...animatedStyle}}
                 key={item} 
                 onLayout={(event)=>onLayout(event, item)}
               >

@@ -2,14 +2,14 @@ on:
   push:
     branches:
       - main
-name: 🚀 Deploy website on push
+name: 🚀 Deploy Website On Push
 jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
         
     steps:
-    - name: 🚚 Get latest code
+    - name: Get latest code
       uses: actions/checkout@v2
 
       # Setup .NET Core SDK Acion - https://github.com/marketplace/actions/setup-net-core-sdk
@@ -17,19 +17,19 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.202
-    - name: Listar Pastas
+    - name: Listing Folders
       working-directory: ./Backend/
       run: ls
-    - name: Versão do SDK
+    - name: SDK Version
       working-directory: ./Backend/
       run: dotnet --version
-    - name: Restore dependencies
+    - name: Restore Dependencies
       working-directory: ./Backend/
       run: dotnet restore
-    - name: Build
+    - name: Build dotnet
       working-directory: ./Backend/
       run: dotnet build --no-restore
-    - name: Publish
+    - name: Publish dotnet again
       working-directory: ./Backend/
       run: dotnet publish -o Publish
       
