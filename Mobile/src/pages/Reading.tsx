@@ -135,12 +135,13 @@ const styles = StyleSheet.create({
 		fontSize: 42,
   },
   viewHeaderTexts:{
+    flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 10,
-    alignContent: 'center'
+    justifyContent: 'center'
   },
   textBook:{
-    fontSize: 36
+    fontSize: 22
   },
   textChapter:{
     fontSize: 22
