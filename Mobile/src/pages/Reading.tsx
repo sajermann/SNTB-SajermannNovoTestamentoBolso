@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Text, SafeAreaView, StyleSheet, Image, ScrollView, Dimensions, View, Animated } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import { Text, SafeAreaView, StyleSheet, Image, ScrollView, Dimensions, View, Animated, TouchableOpacity } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/core';
 import api from '../services/api';
 import Biblia from '../models/Biblia';
@@ -77,8 +77,15 @@ export function Reading(){
     <SafeAreaView style={styles.container}>
 			<View style={styles.wrapper}>
         <View style={styles.viewHeader}>
-          <Text>{book}</Text>
-          <Text>Capítulo {chapter}</Text>
+          <View style={styles.viewButtonBack}>
+            <TouchableOpacity style={styles.buttonBack} activeOpacity={0.7} onPress={() => navigation.goBack()} >
+              <MaterialIcons name="arrow-back" style={styles.iconBack} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.viewHeaderTexts}>
+            <Text style={styles.textBook}>{book}</Text>
+            <Text style={styles.textChapter}>Capítulo {chapter}</Text>
+          </View>
         </View>
 				<View style={styles.viewMain}>
           <ScrollView
@@ -108,9 +115,6 @@ export function Reading(){
 }
 
 const styles = StyleSheet.create({
-  fadingContainer: {
-    backgroundColor: "powderblue"
-  },
   container: {
     flex: 1,
     marginTop: 30
@@ -119,41 +123,27 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-around',
     alignItems: 'center',
-    // paddingHorizontal: 20 
   },
   viewHeader:{
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  inputSearch:{
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderBottomColor: 'gray',
-    borderBottomLeftRadius: 5,
-    borderTopLeftRadius: 5,
-    color: 'gray',
-    width: '50%',
-    height: 50,
-    fontSize: 18,
-    // marginTop: 50,
-    padding: 10,
-    textAlign: 'center'
-  },
-  buttonSearch:{
-    width: 50,
-    height: 50,
-    backgroundColor: 'green',
-    justifyContent: 'center',
+    flexDirection: 'row',
     alignItems: 'center',
-    borderBottomRightRadius: 5,
-    borderTopRightRadius: 5,
+    width: '100%'
   },
-  iconSearch:{
-    color: '#fff',
-    fontSize: 32,
+  buttonBack: {
+  },
+  iconBack:{
+		fontSize: 42,
+  },
+  viewHeaderTexts:{
+    alignItems: 'center',
+    marginLeft: 10,
+    alignContent: 'center'
+  },
+  textBook:{
+    fontSize: 36
+  },
+  textChapter:{
+    fontSize: 22
   },
   viewMain:{
 		flex:1,
@@ -161,44 +151,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
     padding: 10,
   },
-  textCard:{
-    // textAlign: 'center',
-    fontSize: 18,
-    color: 'red',
-  },
-  iconEnter:{
-    color: 'black',
-    fontSize: 42
-  },
-  viewFooter:{
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  buttonFavorite: {
-      backgroundColor: 'green',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      flexDirection: 'row',
-      // borderRadius: 16,
-      // marginBottom: 10,
-      height: 100,
-      width: '100%',
-      marginBottom: -5
-  },
-  iconFavorite:{
-		fontSize: 52,
-		color: '#fff'
-  },
-  textFavorite:{
-    color: '#fff',
-    fontSize: 52
-  },
-  teste:{
-    backgroundColor: 'green',
-    color: 'white',
-    // backgroundColor: 'white'
-  },
-  normal:{}
-
-})
+  viewButtonBack:{
+    position: 'relative'
+  }
+});
