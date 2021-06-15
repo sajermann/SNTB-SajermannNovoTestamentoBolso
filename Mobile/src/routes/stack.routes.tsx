@@ -6,6 +6,7 @@ import { Chapter } from '../pages/Chapter';
 import { Verse } from '../pages/Verse';
 import { Reading } from '../pages/Reading';
 import TabsRoutes from './tab.routes';
+import { About } from '../pages/About';
 
 const stackRoutes = createStackNavigator();
 
@@ -34,6 +35,10 @@ const AppRoutes : React.FunctionComponent = () => (
 		<stackRoutes.Screen
 			name="Reading"
 			component={Reading}
+		/>
+		<stackRoutes.Screen
+			name="About"
+			component={TabsRoutes}
 		/>
 		
 	</stackRoutes.Navigator>
