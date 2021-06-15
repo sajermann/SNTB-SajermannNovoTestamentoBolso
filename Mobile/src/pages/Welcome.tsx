@@ -11,6 +11,8 @@ import { BibliaContext } from '../context/BibliaContext';
 export function Welcome(){
   const navigation = useNavigation();
   const { biblias } = useContext(BibliaContext);
+  const [bibliasFiltered, setBibliasFiltered] = useState<Biblia[]>();
+  const [textFilter, setTextFilter] = useState('');
 	function handleFavorites(){
 		navigation.navigate('Favorites');
 	}
@@ -20,41 +22,73 @@ export function Welcome(){
       book: title
     });
 	}
+
+  function handleTextFilter(value: string){
+    setTextFilter(value);
+    if(value === '') handleFilter();
+  }
 	function handleFilter(){
-		
+    const valueSearch = textFilter.toLowerCase();
+    const bibliasForFilter = [...biblias];
+		const resultFiltred = bibliasForFilter.filter(item => {
+      return (
+        item.titulo.toLowerCase().indexOf(valueSearch) > -1 // ||
+        // item.descricao.toLowerCase().indexOf(valueSearch) > -1 ||
+        // item.capitulo.toString().indexOf(valueSearch) > -1 ||
+        // item.versiculo.toString().indexOf(valueSearch) > -1
+      )
+    });
+
+    if (resultFiltred) {
+			setBibliasFiltered(resultFiltred);
+    }
+
 	}
 
   useEffect(()=>{
-
+    if(biblias !== undefined){
+      setBibliasFiltered(biblias);
+    }
     
-  },[]);
+  },[biblias]);
 
-  if(!biblias){
-    return <></>
+  if(!bibliasFiltered){
+    return <Text style={styles.loading}>Carregando</Text>
   }
 
 	return(
     <SafeAreaView style={styles.container}>
 			<View style={styles.wrapper}>
         <View style={styles.viewHeader}>
-          <TextInput
-            style={styles.inputSearch} 
-            placeholder="Pesquisar"
-            // onBlur={handleInputBlur}
-            // onFocus={handleInputFocus}
-            // onChangeText={handleInputChange}
-          />
-          <TouchableOpacity style={styles.buttonSearch} activeOpacity={0.7} onPress={handleFilter} >
-            <Feather name="search" style={styles.iconSearch} />
-          </TouchableOpacity>
+          <View style={styles.viewFilter}>
+            <TextInput
+              style={styles.inputSearch} 
+              placeholder="Pesquisar"
+              // onBlur={handleInputBlur}
+              // onFocus={handleInputFocus}
+              value={textFilter}
+              onChangeText={(value)=>handleTextFilter(value)}
+            />
+            <TouchableOpacity style={styles.buttonSearch} activeOpacity={0.7} onPress={handleFilter} >
+              <Feather name="search" style={styles.iconSearch} />
+            </TouchableOpacity>
+          </View>
+          
+          <View style={styles.viewTextBooks}>
+            <Text style={styles.textTextBooks}>Livros</Text>
+          </View>
         </View>
 				<View style={styles.viewMain}>
+          {
+            bibliasFiltered.length === 0 &&
+            <Text style={styles.noResultFilter}>Sem resultados!</Text>
+          }
           <FlatList
-            data={groupBook(biblias)}
+            data={groupBook(bibliasFiltered)}
             keyExtractor={(item)=>String(item)}
             renderItem={({item})=>(
               <TouchableOpacity style={styles.buttonCard} activeOpacity={0.7} onPress={()=>handleNavigation(item)} >
-                <Text style={styles.textCard}>
+                <Text numberOfLines={1} style={styles.textCard}>
                   {item}
                 </Text>
                 <Feather name="arrow-right" style={styles.iconEnter} /> 
@@ -63,20 +97,24 @@ export function Welcome(){
             showsVerticalScrollIndicator={true}
           />
         </View>
-        <View style={styles.viewFooter}>
+        {/* <View style={styles.viewFooter}>
 					<TouchableOpacity style={styles.buttonFavorite} activeOpacity={0.7} onPress={handleFavorites} >
             <Feather name="star" style={styles.iconFavorite} />
 						<Text style={styles.textFavorite}>
               Favoritos
 						</Text>
 					</TouchableOpacity>
-        </View>
+        </View> */}
 			</View>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  loading:{
+    fontSize:48
+  },
+
   container: {
     flex: 1,
     marginTop: 30
@@ -85,9 +123,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-around',
     alignItems: 'center',
-    // paddingHorizontal: 20 
   },
   viewHeader:{
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  viewFilter:{
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
@@ -121,12 +162,21 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 32,
   },
+  viewTextBooks:{
+    marginTop: 10
+  },
+  textTextBooks:{
+    fontSize: 32,
+  },
   viewMain:{
 		flex:1,
 		width: '100%',
 		justifyContent: 'center',
     padding: 10,
   },
+  noResultFilter:{
+    fontSize:48
+  },  
   buttonCard:{
     height: 50,
     borderTopWidth: 1,
@@ -141,16 +191,21 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 5
+    padding: 5, 
+    overflow: 'hidden'
   },
   textCard:{
-    // textAlign: 'center',
     fontSize: 42,
     color: 'red',
+    width: '80%',
+    overflow: 'hidden',
+    flex: 1,
+    textAlign: "left" 
   },
   iconEnter:{
     color: 'black',
-    fontSize: 42
+    fontSize: 42,
+    width: '10%'
   },
   viewFooter:{
     flexDirection: 'row',
@@ -162,8 +217,6 @@ const styles = StyleSheet.create({
       justifyContent: 'space-around',
       alignItems: 'center',
       flexDirection: 'row',
-      // borderRadius: 16,
-      // marginBottom: 10,
       height: 100,
       width: '100%',
       marginBottom: -5
@@ -176,6 +229,4 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 52
   },
-  
-
-})
+});

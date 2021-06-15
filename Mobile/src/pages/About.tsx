@@ -5,32 +5,19 @@ import { useNavigation, useRoute } from '@react-navigation/core';
 import api from '../services/api';
 import Biblia from '../models/Biblia';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
-import { groupChapter } from '../utils/Group';
+import { groupVerse } from '../utils/Group';
 import { BibliaContext } from '../context/BibliaContext';
 
 interface ParamsRoute{
   book: string;
+  chapter: string;
 }
 
-export function Chapter(){
+export function About(){
   const { biblias } = useContext(BibliaContext);
 	const navigation = useNavigation();
   const routes = useRoute();
-  const { book } = routes.params as ParamsRoute;
-	function handleNavigateToVerse(chapter: string){
-		navigation.navigate('Verse', {
-      book,
-      chapter 
-    });
-	}
-
-  useEffect(()=>{
-    console.log('entro no chapter', book)
-  },[]);
-
-  if(!biblias){
-    return <></>
-  }
+ 
 
 	return(
     <SafeAreaView style={styles.container}>
@@ -42,25 +29,12 @@ export function Chapter(){
             </TouchableOpacity>
           </View>
           <View style={styles.viewHeaderTexts}>
-            <Text style={styles.textBook}>Escolha o Capítulo do livro </Text>
-            <Text style={styles.textChapter}>{book}</Text>
+            <Text style={styles.textBook}>Informações sobre o aplicativo</Text>
+            
           </View>
         </View>
-			  <View style={styles.viewMain}>
-          <FlatList
-            data={groupChapter(biblias, book)}
-            keyExtractor={(item)=>String(item)}
-            renderItem={({item})=>(
-              <TouchableOpacity style={styles.buttonCard} activeOpacity={0.7} onPress={()=>handleNavigateToVerse(item)} >
-                <Text style={styles.textCard}>
-                  {item}
-                </Text>
-                {/* <Feather name="arrow-right" style={styles.iconEnter} />  */}
-              </TouchableOpacity>
-            )}
-            numColumns={4}
-            showsVerticalScrollIndicator={true}
-          />
+				<View style={styles.viewMain}>
+          
         </View>
 			</View>
     </SafeAreaView>

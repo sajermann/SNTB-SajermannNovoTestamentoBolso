@@ -71,8 +71,6 @@ export function Reading(){
     }
   }
 
-
-
 	return(
     <SafeAreaView style={styles.container}>
 			<View style={styles.wrapper}>
@@ -84,7 +82,7 @@ export function Reading(){
           </View>
           <View style={styles.viewHeaderTexts}>
             <Text style={styles.textBook}>{book}</Text>
-            <Text style={styles.textChapter}>Capítulo {chapter}</Text>
+            <Text style={styles.textChapter}>capítulo {chapter}</Text>
           </View>
         </View>
 				<View style={styles.viewMain}>
@@ -129,19 +127,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%'
   },
+  viewButtonBack:{
+    position: 'relative',
+    width: '10%'
+  },
   buttonBack: {
   },
   iconBack:{
 		fontSize: 42,
   },
   viewHeaderTexts:{
-    flexDirection: 'row',
+    width: '89%',
+    // flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 10,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    overflow: 'hidden'
   },
   textBook:{
-    fontSize: 22
+    fontSize: 32,
+    overflow: 'scroll'
   },
   textChapter:{
     fontSize: 22
@@ -152,7 +157,5 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
     padding: 10,
   },
-  viewButtonBack:{
-    position: 'relative'
-  }
+
 });
