@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Text, SafeAreaView, StyleSheet, Image, TouchableOpacity, Dimensions, View } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
 
@@ -13,9 +13,6 @@ export function Welcome(){
   const { biblias } = useContext(BibliaContext);
   const [bibliasFiltered, setBibliasFiltered] = useState<Biblia[]>();
   const [textFilter, setTextFilter] = useState('');
-	function handleFavorites(){
-		navigation.navigate('Favorites');
-	}
 	function handleNavigation(title: string){
     
 		navigation.navigate('Chapter', {
@@ -97,14 +94,6 @@ export function Welcome(){
             showsVerticalScrollIndicator={true}
           />
         </View>
-        {/* <View style={styles.viewFooter}>
-					<TouchableOpacity style={styles.buttonFavorite} activeOpacity={0.7} onPress={handleFavorites} >
-            <Feather name="star" style={styles.iconFavorite} />
-						<Text style={styles.textFavorite}>
-              Favoritos
-						</Text>
-					</TouchableOpacity>
-        </View> */}
 			</View>
     </SafeAreaView>
   )
@@ -112,9 +101,9 @@ export function Welcome(){
 
 const styles = StyleSheet.create({
   loading:{
+    flex: 1,
     fontSize:48
   },
-
   container: {
     flex: 1,
     marginTop: 30
@@ -173,6 +162,7 @@ const styles = StyleSheet.create({
 		width: '100%',
 		justifyContent: 'center',
     padding: 10,
+    //backgroundColor: ''
   },
   noResultFilter:{
     fontSize:48
@@ -186,47 +176,27 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 5,
     marginBottom: 5,
-    backgroundColor: '#53f83d',
+    backgroundColor: '#F5B096',
     fontSize: 22,
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 5, 
-    overflow: 'hidden'
+    paddingVertical: 30, 
+    paddingHorizontal: 10, 
+    overflow: 'hidden',
+    borderRadius: 10
   },
   textCard:{
     fontSize: 42,
-    color: 'red',
+    color: '#755448',
     width: '80%',
     overflow: 'hidden',
     flex: 1,
     textAlign: "left" 
   },
   iconEnter:{
-    color: 'black',
+    color: '#755448',
     fontSize: 42,
     width: '10%'
-  },
-  viewFooter:{
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  buttonFavorite: {
-      backgroundColor: 'green',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      flexDirection: 'row',
-      height: 100,
-      width: '100%',
-      marginBottom: -5
-  },
-  iconFavorite:{
-		fontSize: 52,
-		color: '#fff'
-  },
-  textFavorite:{
-    color: '#fff',
-    fontSize: 52
   },
 });
