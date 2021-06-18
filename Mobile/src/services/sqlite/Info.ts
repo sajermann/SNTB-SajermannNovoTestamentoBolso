@@ -6,22 +6,22 @@ import db from "./SQLiteDatabase";
  * - Executa sempre, mas só cria a tabela caso não exista (primeira execução)
  */
 try{
-db.transaction((tx) => {
-  //<<<<<<<<<<<<<<<<<<<<<<<< USE ISSO APENAS DURANTE OS TESTES!!! >>>>>>>>>>>>>>>>>>>>>>>
-  //tx.executeSql("DROP TABLE Info;");
-  //<<<<<<<<<<<<<<<<<<<<<<<< USE ISSO APENAS DURANTE OS TESTES!!! >>>>>>>>>>>>>>>>>>>>>>>
+  db.transaction((tx) => {
+    //<<<<<<<<<<<<<<<<<<<<<<<< USE ISSO APENAS DURANTE OS TESTES!!! >>>>>>>>>>>>>>>>>>>>>>>
+    //tx.executeSql("DROP TABLE Info;");
+    //<<<<<<<<<<<<<<<<<<<<<<<< USE ISSO APENAS DURANTE OS TESTES!!! >>>>>>>>>>>>>>>>>>>>>>>
 
-  tx.executeSql(
-    `CREATE TABLE IF NOT EXISTS Info (
-     id INTEGER PRIMARY KEY, 
-     registersCount INT, 
-     version TEXT, 
-     databaseSize TEXT,
-     updatedAt TEXT
-     );`
-  );
-  
-});
+    tx.executeSql(
+      `CREATE TABLE IF NOT EXISTS Info (
+      id INTEGER PRIMARY KEY, 
+      registersCount INT, 
+      version TEXT, 
+      databaseSize TEXT,
+      updatedAt TEXT
+      );`
+    );
+    
+  });
 }catch(err){
   console.log('deu err no try catch', err)
 }
@@ -33,7 +33,7 @@ db.transaction((tx) => {
  *  - O resultado da Promise é o ID do registro (criado por AUTOINCREMENT)
  *  - Pode retornar erro (reject) caso exista erro no SQL ou nos parâmetros.
  */
-const create = (obj: Info) => {
+const create = (obj: Info): Promise<Info> => {
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
       //comando SQL modificável
@@ -41,11 +41,14 @@ const create = (obj: Info) => {
         "INSERT INTO Info (id, registersCount, version, databaseSize, updatedAt) values (?, ?, ?, ?, ?);",
         [obj.id, obj.registersCount, obj.version, obj.databaseSize, obj.updatedAt],
         //-----------------------
-        (_, { rowsAffected, insertId }) => {
-          if (rowsAffected > 0) resolve(insertId);
+        (_, { rowsAffected }) => {
+          if (rowsAffected > 0) resolve(obj);
           else reject("Error inserting obj: " + JSON.stringify(obj)); // insert falhou
         },
-        (_, error) => reject(error) // erro interno em tx.executeSql
+        (_, error): boolean => {
+          reject(error);
+          return false
+        } // erro interno em tx.executeSql
       );
     });
   });
@@ -60,7 +63,7 @@ const create = (obj: Info) => {
  *  - Pode retornar erro (reject) caso o ID não exista ou então caso ocorra erro no SQL;
  *  - Pode retornar um array vazio caso não existam registros.
  */
-const all = () => {
+const all = async (): Promise<Info> => {
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
       //comando SQL modificável
@@ -68,8 +71,24 @@ const all = () => {
         "SELECT * FROM Info",
         [],
         //-----------------------
-        (_, { rows }) => resolve(rows._array),
-        (_, error) => reject(error) // erro interno em tx.executeSql
+        (_, { rows }: any): Info | void => 
+        {
+          const result: Info = {
+            version: '0',
+            databaseSize: '0',
+            registersCount: 2,
+            updatedAt: new Date()
+          };
+          console.log('Bruno quem é esse cara?', rows._array[0])
+          if(rows._array.length !== 0){
+            result.updatedAt = rows._array[0].updatedAt;
+          }
+          return resolve(result)
+        },
+        (_, error): boolean => {
+          reject(error);
+          return false
+        } // erro interno em tx.executeSql
       );
     });
   });
@@ -81,17 +100,18 @@ const all = () => {
  *  - O resultado da Promise a quantidade de registros removidos (zero indica que nada foi removido);
  *  - Pode retornar erro (reject) caso o ID não exista ou então caso ocorra erro no SQL.
  */
-const removeAll = () => {
-  return new Promise((resolve, reject) => {
+const removeAll = async (): Promise<Info> => {
+  return new Promise((_, reject) => {
     db.transaction((tx) => {
       //comando SQL modificável
       tx.executeSql(
-        "DELETE FROM Info;",
+        "DELETE FROM Info",
+        [],
         //-----------------------
-        (_, { rowsAffected }) => {
-          resolve(rowsAffected);
-        },
-        (_, error) => reject(error) // erro interno em tx.executeSql
+        (_, error): boolean => {
+          reject(error);
+          return false
+        } // erro interno em tx.executeSql
       );
     });
   });

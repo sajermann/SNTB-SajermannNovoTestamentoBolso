@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Text, SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
-
+import { Load } from '../components/Load';
 import Biblia from '../models/Biblia';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 import { groupBook } from '../utils/Group';
@@ -50,7 +50,7 @@ export function Welcome(){
   },[biblias]);
 
   if(!bibliasFiltered){
-    return <Text style={styles.loading}>Carregando</Text>
+    return <Load />
   }
 
 	return(
@@ -100,10 +100,6 @@ export function Welcome(){
 }
 
 const styles = StyleSheet.create({
-  loading:{
-    flex: 1,
-    fontSize:48
-  },
   container: {
     flex: 1,
     marginTop: 30

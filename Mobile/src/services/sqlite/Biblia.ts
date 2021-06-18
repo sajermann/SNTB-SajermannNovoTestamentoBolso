@@ -43,7 +43,10 @@ const create = (obj: Biblia) => {
           if (rowsAffected > 0) resolve(insertId);
           else reject("Error inserting obj: " + JSON.stringify(obj)); // insert falhou
         },
-        (_, error) => reject(error) // erro interno em tx.executeSql
+        (_, error): boolean => {
+          reject(error);
+          return false
+        } // erro interno em tx.executeSql
       );
     });
   });
@@ -66,8 +69,11 @@ const all = () => {
         "SELECT * FROM biblia;",
         [],
         //-----------------------
-        (_, { rows }) => resolve(rows._array),
-        (_, error) => reject(error) // erro interno em tx.executeSql
+        (_, rows: any): Biblia[] | void => resolve(rows._array),
+        (_, error): boolean => {
+          reject(error);
+          return false
+        } // erro interno em tx.executeSql
       );
     });
   });
@@ -80,17 +86,18 @@ const all = () => {
  *  - O resultado da Promise a quantidade de registros removidos (zero indica que nada foi removido);
  *  - Pode retornar erro (reject) caso o ID não exista ou então caso ocorra erro no SQL.
  */
-const removeAll = () => {
-  return new Promise((resolve, reject) => {
+const removeAll = async (): Promise<Biblia> => {
+  return new Promise((_, reject) => {
     db.transaction((tx) => {
       //comando SQL modificável
       tx.executeSql(
         "DELETE FROM biblia;",
+        [],
         //-----------------------
-        (_, { rowsAffected }) => {
-          resolve(rowsAffected);
-        },
-        (_, error) => reject(error) // erro interno em tx.executeSql
+        (_, error): boolean => {
+          reject(error);
+          return false
+        } // erro interno em tx.executeSql
       );
     });
   });
