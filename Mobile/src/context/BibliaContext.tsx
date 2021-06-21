@@ -109,6 +109,8 @@ export function BibliaProvider({ children }: Props) {
       try{
         const { data } = await api.get<Info>('/Info');
         dataInfoExternal = {...data}
+        // console.log('Bruno')
+        // console.log({dataInfoExternal})
       }catch(err){
         Console({
           style: 'error',
@@ -132,8 +134,18 @@ export function BibliaProvider({ children }: Props) {
       // Se continuou a função é porque as datas eram diferentes, nesse caso
       // se faz necessário atualizar os dois bancos de dados.
       Console({message: `Mobile está desatualizado! Atualizando informações: `});
-      console.log({dataInfoExternal: dataInfoExternal.updatedAt});
-      console.log({dataInfoMobile: dataInfoMobile.updatedAt});
+      console.log({
+        updatedAt: dataInfoExternal.updatedAt,
+        registersCount: dataInfoExternal.registersCount,
+        databaseSize: dataInfoExternal.databaseSize,
+        version: dataInfoExternal.version,
+      });
+      console.log({
+        updatedAt: dataInfoMobile.updatedAt,
+        registersCount: dataInfoMobile.registersCount,
+        databaseSize: dataInfoMobile.databaseSize,
+        version: dataInfoMobile.version,
+      });
       const { data: dataBibliaExternal } = await api.get<Biblia[]>('/PocketNewTestament');
      
       // Remove todos os registros da Biblia no Mobile

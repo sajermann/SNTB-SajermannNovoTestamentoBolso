@@ -8,7 +8,7 @@ import db from "./SQLiteDatabase";
 try{
   db.transaction((tx) => {
     //<<<<<<<<<<<<<<<<<<<<<<<< USE ISSO APENAS DURANTE OS TESTES!!! >>>>>>>>>>>>>>>>>>>>>>>
-    //tx.executeSql("DROP TABLE Info;");
+    // tx.executeSql("DROP TABLE Info;");
     //<<<<<<<<<<<<<<<<<<<<<<<< USE ISSO APENAS DURANTE OS TESTES!!! >>>>>>>>>>>>>>>>>>>>>>>
 
     tx.executeSql(
