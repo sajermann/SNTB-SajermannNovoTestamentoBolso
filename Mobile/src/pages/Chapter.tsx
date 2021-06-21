@@ -2,11 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Text, SafeAreaView, StyleSheet, Image, TouchableOpacity, Dimensions, View } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/core';
-import api from '../services/api';
-import Biblia from '../models/Biblia';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 import { groupChapter } from '../utils/Group';
 import { BibliaContext } from '../context/BibliaContext';
+import colors from '../styles/colors';
 
 interface ParamsRoute{
   book: string;
@@ -25,7 +24,7 @@ export function Chapter(){
 	}
 
   useEffect(()=>{
-    console.log('entro no chapter', book)
+    
   },[]);
 
   if(!biblias){
@@ -55,7 +54,6 @@ export function Chapter(){
                 <Text style={styles.textCard}>
                   {item}
                 </Text>
-                {/* <Feather name="arrow-right" style={styles.iconEnter} />  */}
               </TouchableOpacity>
             )}
             numColumns={4}
@@ -82,20 +80,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%'
   },
-  viewMain:{
-		flex:1,
-		width: '100%',
-		justifyContent: 'center',
-    padding: 10,
+  viewButtonBack:{
+    position: 'relative',
+    width: '10%'
   },
-  buttonBack: {
-  },
+  buttonBack: {},
   iconBack:{
-		fontSize: 42,
+    fontSize: 42,
+    //color: colors.white
   },
   viewHeaderTexts:{
     width: '89%',
-    // flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 10,
     justifyContent: 'center',
@@ -108,30 +103,36 @@ const styles = StyleSheet.create({
   textChapter:{
     fontSize: 18
   },
-  viewButtonBack:{
-    position: 'relative',
-    width: '10%'
+  viewMain:{
+		flex:1,
+		width: '100%',
+		justifyContent: 'center',
+    padding: 10,
   },
   buttonCard:{
     height: 50,
     borderTopWidth: 1,
+    borderTopColor: colors.blue_dark,
     borderRightWidth: 1,
+    borderRightColor: colors.blue_dark,
     borderBottomWidth: 1,
+    borderBottomColor: colors.blue_dark,
     borderLeftWidth: 1,
+    borderLeftColor: colors.blue_dark,
     width: '23%',
     marginTop: 5,
     marginBottom: 5,
-    backgroundColor: '#53f83d',
+    backgroundColor: colors.blue,
     fontSize: 22,
     justifyContent: 'center',
     flexDirection: 'row',
     alignItems: 'center',
     padding: 5,
-    margin: '1%'
+    margin: '1%',
+    borderRadius: 10,
   },
   textCard:{
-    // textAlign: 'center',
     fontSize: 42,
-    color: 'red',
+    color: colors.white,
   },
 });

@@ -36,7 +36,6 @@ export function BibliaProvider({ children }: Props) {
   const [biblias, setBiblias] = useState<Biblia[]>()
 
 	const login = () => {
-		console.log('Bruno');
 		setUser(true);
 	};
 
@@ -71,7 +70,6 @@ export function BibliaProvider({ children }: Props) {
     const dataBibliaMobile = await BibliaContextRepository.all()
     .then( results => results)
     .catch( err => console.log('Erro no Info', err));
-
     // Inclue no useState das Biblias e encerra a função loadBiblias
     if(dataBibliaMobile !== undefined){
       setBiblias(dataBibliaMobile);

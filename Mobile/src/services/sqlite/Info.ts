@@ -79,7 +79,6 @@ const all = async (): Promise<Info> => {
             registersCount: 2,
             updatedAt: new Date()
           };
-          console.log('Bruno quem é esse cara?', rows._array[0])
           if(rows._array.length !== 0){
             result.updatedAt = rows._array[0].updatedAt;
           }

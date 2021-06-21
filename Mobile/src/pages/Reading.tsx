@@ -2,13 +2,11 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Text, SafeAreaView, StyleSheet, Image, ScrollView, Dimensions, View, Animated, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/core';
-import api from '../services/api';
-import Biblia from '../models/Biblia';
-import { FlatList, TextInput } from 'react-native-gesture-handler';
 import { groupContent } from '../utils/Group';
 import { verifyVerse } from '../utils/Verify';
 import { BibliaContext } from '../context/BibliaContext';
 import { LayoutChangeEvent } from "react-native";
+import colors from '../styles/colors';
 
 interface ParamsRoute{
   book: string;
@@ -51,7 +49,7 @@ export function Reading(){
 
   const boxInterpolation =  animation.interpolate({
     inputRange: [0, 1],
-    outputRange:["#fff" , "rgb(90,210,244)"]
+    outputRange:[colors.shape , colors.blue]
   })
   const animatedStyle = {
     backgroundColor: boxInterpolation
@@ -87,7 +85,7 @@ export function Reading(){
         </View>
 				<View style={styles.viewMain}>
           <ScrollView
-            
+            style={styles.scrollView}
             ref={scrollViewRef}
           >
           {
@@ -156,6 +154,11 @@ const styles = StyleSheet.create({
 		width: '100%',
 		justifyContent: 'center',
     padding: 10,
+  },
+  scrollView:{
+    backgroundColor: colors.shape,
+    padding: 10,
+    borderRadius: 15
   },
 
 });

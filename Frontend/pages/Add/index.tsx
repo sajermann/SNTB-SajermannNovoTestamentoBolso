@@ -64,7 +64,11 @@ export default function Home() {
 		console.log(result);
 		if (result.status === 200) {
 			toast.success('Registro incluso com sucesso');
-			router.push('/Home');
+			// router.push('/Home');
+			const bibliaActual = { ...biblia };
+			bibliaActual.versiculo += 1;
+			bibliaActual.descricao = '';
+			setBiblia(bibliaActual);
 		} else {
 			toast.error('Ocorreu um erro');
 			console.log(result);

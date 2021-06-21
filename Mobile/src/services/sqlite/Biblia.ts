@@ -69,7 +69,7 @@ const all = () => {
         "SELECT * FROM biblia;",
         [],
         //-----------------------
-        (_, rows: any): Biblia[] | void => resolve(rows._array),
+        (_, rows: any): Biblia[] | void => resolve(rows.rows._array),
         (_, error): boolean => {
           reject(error);
           return false

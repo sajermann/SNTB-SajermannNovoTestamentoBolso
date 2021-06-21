@@ -8,6 +8,8 @@ import { FlatList, TextInput } from 'react-native-gesture-handler';
 import { groupBook } from '../utils/Group';
 import { BibliaContext } from '../context/BibliaContext';
 
+import colors from '../styles/colors';
+
 export function Welcome(){
   const navigation = useNavigation();
   const { biblias } = useContext(BibliaContext);
@@ -137,28 +139,27 @@ const styles = StyleSheet.create({
   buttonSearch:{
     width: 50,
     height: 50,
-    backgroundColor: 'green',
+    backgroundColor: colors.blue,
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomRightRadius: 5,
     borderTopRightRadius: 5,
   },
   iconSearch:{
-    color: '#fff',
+    color: colors.white,
     fontSize: 32,
   },
   viewTextBooks:{
-    marginTop: 10
+    marginTop: 10,
   },
   textTextBooks:{
-    fontSize: 32,
+    fontSize: 42,
   },
   viewMain:{
 		flex:1,
 		width: '100%',
 		justifyContent: 'center',
     padding: 10,
-    //backgroundColor: ''
   },
   noResultFilter:{
     fontSize:48
@@ -166,13 +167,17 @@ const styles = StyleSheet.create({
   buttonCard:{
     height: 50,
     borderTopWidth: 1,
+    borderTopColor: colors.blue_dark,
     borderRightWidth: 1,
+    borderRightColor: colors.blue_dark,
     borderBottomWidth: 1,
+    borderBottomColor: colors.blue_dark,
     borderLeftWidth: 1,
+    borderLeftColor: colors.blue_dark,
     width: '100%',
     marginTop: 5,
     marginBottom: 5,
-    backgroundColor: '#F5B096',
+    backgroundColor: colors.blue,
     fontSize: 22,
     justifyContent: 'space-between',
     flexDirection: 'row',
@@ -184,14 +189,14 @@ const styles = StyleSheet.create({
   },
   textCard:{
     fontSize: 42,
-    color: '#755448',
+    color: colors.white,
     width: '80%',
     overflow: 'hidden',
     flex: 1,
     textAlign: "left" 
   },
   iconEnter:{
-    color: '#755448',
+    color: colors.white,
     fontSize: 42,
     width: '10%'
   },

@@ -7,6 +7,7 @@ import Biblia from '../models/Biblia';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 import { groupVerse } from '../utils/Group';
 import { BibliaContext } from '../context/BibliaContext';
+import colors from '../styles/colors';
 
 interface ParamsRoute{
   book: string;
@@ -57,7 +58,6 @@ export function Verse(){
                 <Text style={styles.textCard}>
                   {item}
                 </Text>
-                {/* <Feather name="arrow-right" style={styles.iconEnter} />  */}
               </TouchableOpacity>
             )}
             numColumns={4}
@@ -117,23 +117,27 @@ const styles = StyleSheet.create({
   buttonCard:{
     height: 50,
     borderTopWidth: 1,
+    borderTopColor: colors.blue_dark,
     borderRightWidth: 1,
+    borderRightColor: colors.blue_dark,
     borderBottomWidth: 1,
+    borderBottomColor: colors.blue_dark,
     borderLeftWidth: 1,
+    borderLeftColor: colors.blue_dark,
     width: '23%',
     marginTop: 5,
     marginBottom: 5,
-    backgroundColor: '#53f83d',
+    backgroundColor: colors.blue,
     fontSize: 22,
     justifyContent: 'center',
     flexDirection: 'row',
     alignItems: 'center',
     padding: 5,
-    margin: '1%'
+    margin: '1%',
+    borderRadius: 10,
   },
   textCard:{
-    // textAlign: 'center',
     fontSize: 42,
-    color: 'red',
+    color: colors.white,
   },
 });

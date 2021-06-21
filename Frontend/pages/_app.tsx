@@ -1,4 +1,3 @@
-// import App from "next/app";
 import { useMemo } from 'react';
 import { AppProps /* , AppContext */ } from 'next/app';
 import useMediaQuery from '@material-ui/core/useMediaQuery';

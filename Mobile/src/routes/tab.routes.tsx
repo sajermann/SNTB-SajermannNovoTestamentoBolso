@@ -4,14 +4,15 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Welcome } from '../pages/Welcome';
 import { About } from '../pages/About';
 import { MaterialIcons } from '@expo/vector-icons';
-
+import colors from '../styles/colors';
+import { color } from 'react-native-reanimated';
 const AppTab = createBottomTabNavigator();
 
 const TabsRoutes = () => {
 	return (
 		<AppTab.Navigator
 			tabBarOptions={{
-				activeTintColor: '#32B768',
+				activeTintColor: colors.blue,
 				inactiveTintColor: '#52665A',
 				labelPosition: 'below-icon',
 				style:{
